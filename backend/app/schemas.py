@@ -1,0 +1,148 @@
+# app/schemas.py
+from pydantic import BaseModel, EmailStr, ConfigDict, Field
+from datetime import date, datetime
+from typing import List, Optional
+from bson import ObjectId
+
+# Helper for ObjectId serialization
+class PyObjectId(ObjectId):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(type="string")
+
+# ========== User Schemas ==========
+class UserRegister(BaseModel):
+    full_name: str
+    email: EmailStr
+    password: str
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class UserResponse(BaseModel):
+    id: str = Field(alias="_id")
+    full_name: str
+    email: EmailStr
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+# ========== Product Schemas ==========
+class ProductResponse(BaseModel):
+    id: str = Field(alias="_id")
+    name: str
+    description: str
+    price: float
+    image: Optional[str] = None
+    category: Optional[str] = None
+    stock: int
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+# ========== Question Schemas ==========
+class QuestionResponse(BaseModel):
+    id: str = Field(alias="_id")
+    question: str
+    option_a: str
+    option_b: str
+    option_c: str
+    option_d: str
+    correct_answer: int
+    category: str
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+# ========== City Embedded Schemas ==========
+class PlaceOut(BaseModel):
+    title: str
+    description: Optional[str] = None
+    image: Optional[str] = None
+
+class CultureOut(BaseModel):
+    title: str
+    category: str
+    description: Optional[str] = None
+    image: Optional[str] = None
+
+class StayOut(BaseModel):
+    name: str
+    type: str
+    description: Optional[str] = None
+    image: Optional[str] = None
+    price: Optional[float] = None
+    amenities: Optional[str] = None
+    booking_link: Optional[str] = None
+
+class TransportOut(BaseModel):
+    type: str
+    title: str
+    description: Optional[str] = None
+
+# ========== City Schemas ==========
+class CityResponse(BaseModel):
+    id: str = Field(alias="_id")
+    name: str
+    slug: str
+    tagline: Optional[str] = None
+    subtitle: Optional[str] = None
+    image: Optional[str] = None
+    description: Optional[str] = None
+    details: Optional[str] = None
+    detail_image: Optional[str] = None
+    best_time: Optional[str] = None
+    highlights: Optional[str] = None
+    budget: Optional[str] = None
+    duration: Optional[str] = None
+    places: List[PlaceOut] = []
+    culture: List[CultureOut] = []
+    stays: List[StayOut] = []
+    transport: List[TransportOut] = []
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+class CityPlannerOut(CityResponse):
+    """Alias for CityResponse for backward compatibility"""
+    pass
+
+# ========== Trip Inquiry Schemas ==========
+class TripInquiryCreate(BaseModel):
+    full_name: str
+    email: EmailStr
+    travel_date: date
+    guests: int
+    special_interests: Optional[str] = None
+
+class TripInquiryResponse(BaseModel):
+    message: str
+
+
+# ========== Booking Schemas ==========
+
+class BookingCreate(BaseModel):
+    city: str
+    experience: str
+    travel_date: date
+    travellers: int
+
+    full_name: str
+    email: EmailStr
+    phone: str
+    from_city: str
+
+    special_requests: Optional[str] = None
+
+
+class BookingResponse(BaseModel):
+    message: str
+    booking_id: str
+    status: str
