@@ -146,3 +146,54 @@ class BookingResponse(BaseModel):
     message: str
     booking_id: str
     status: str
+
+# ========== Story Schemas ==========
+class StoryResponse(BaseModel):
+    id: str = Field(alias="_id")
+    title: str
+    city: str
+    category: str
+    duration: str
+    thumbnail: str
+    description: Optional[str] = None
+    video_url: str
+    is_featured: bool
+    view_count: int
+    likes: int
+    age_group: str
+    tags: List[str]
+    created_at: datetime
+    updated_at: datetime
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+class StoryCreate(BaseModel):
+    title: str
+    city: str
+    category: str
+    duration: str
+    thumbnail: str
+    description: Optional[str] = None
+    video_url: str
+    is_featured: bool = False
+    age_group: str = "All"
+    tags: List[str] = []
+
+class StoryUpdate(BaseModel):
+    title: Optional[str] = None
+    city: Optional[str] = None
+    category: Optional[str] = None
+    duration: Optional[str] = None
+    thumbnail: Optional[str] = None
+    description: Optional[str] = None
+    video_url: Optional[str] = None
+    is_featured: Optional[bool] = None
+    age_group: Optional[str] = None
+    tags: Optional[List[str]] = None
+
+class StoriesResponse(BaseModel):
+     
+    stories: List[StoryResponse]
+    pagination: dict
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)

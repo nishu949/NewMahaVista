@@ -4,7 +4,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field, EmailStr
 from bson import ObjectId
 
-# Custom type for MongoDB ObjectId
+# Custom type for MongoDB ObjectId (DEFINED ONLY ONCE)
 class PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -112,3 +112,39 @@ class TripInquiry(MongoBase):
     travel_date: datetime
     guests: int
     special_interests: Optional[str] = None
+
+# ========== Story Model ==========
+class StoryVideoMetadata(BaseModel):
+    format: Optional[str] = None
+    size: Optional[int] = None
+    duration: Optional[int] = None
+    width: Optional[int] = None
+    height: Optional[int] = None
+
+class Story(MongoBase):
+    title: str
+    city: str
+    category: str  # Heritage, Culture, Festivals, Food, Wildlife
+    duration: str
+    thumbnail: str
+    description: Optional[str] = None
+    video_url: str
+    video_public_id: Optional[str] = None
+    video_metadata: Optional[StoryVideoMetadata] = None
+    is_featured: bool = False
+    view_count: int = 0
+    likes: int = 0
+    age_group: str = "All"  # Kids, Students, All
+    tags: List[str] = []
+
+class RecommendationPreferences(BaseModel):
+    month: str
+    interests: Optional[List[str]] = []
+    travel_with: Optional[str] = None
+    budget: Optional[str] = None
+    duration: Optional[str] = None
+    weather_preference: Optional[str] = "No Preference"
+    transport: Optional[str] = "No Preference"
+    starting_city: Optional[str] = None
+    adventure_level: Optional[str] = None
+    avoid: Optional[List[str]] = []

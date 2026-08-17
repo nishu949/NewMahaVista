@@ -35,6 +35,7 @@ products_collection = mongo_db["products"]
 questions_collection = mongo_db["questions"]
 cities_collection = mongo_db["cities"]
 trip_inquiries_collection = mongo_db["trip_inquiries"]
+stories_collection = mongo_db["stories"]  # <-- MOVED HERE after mongo_db is defined
 
 # Helper function to convert ObjectId to string
 def serialize_doc(doc):
@@ -50,3 +51,17 @@ def serialize_list(docs):
 def get_db():
     """Get MongoDB database instance"""
     return mongo_db
+
+# for recommendation system 
+# Add these collections after your existing collections
+destinations_collection = mongo_db["destinations"]
+festivals_collection = mongo_db["festivals"]
+def serialize_doc(doc):
+    """Convert MongoDB document to JSON serializable format"""
+    if doc:
+        doc["_id"] = str(doc["_id"])
+    return doc
+
+def serialize_list(docs):
+    """Convert list of MongoDB documents to JSON serializable format"""
+    return [serialize_doc(doc) for doc in docs]

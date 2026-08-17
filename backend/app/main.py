@@ -1,11 +1,15 @@
 # app/main.py
 from fastapi import FastAPI, Depends, HTTPException, status, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from typing import Optional
+import os
 
 from .database import mongo_db, get_db
 from . import schemas, crud
-
+from .routes import story_routes
+from .routes import recommendation_routes
+from .routes import destination_routes
 app = FastAPI()
 
 app.add_middleware(
@@ -20,6 +24,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve videos from frontend public folder
+videos_path = "../frontend/public/videos"  # ← Points to frontend
+if os.path.exists(videos_path):
+    app.mount("/videos", StaticFiles(directory=videos_path), name="videos")
+    print(f"✅ Videos served from: {videos_path}")
+else:
+    print(f"⚠️  Videos folder not found: {videos_path}")
+
+app.include_router(story_routes.router)
+app.include_router(recommendation_routes.router)
+app.include_router(destination_routes.router)
 
 @app.on_event("startup")
 async def startup_db_client():
@@ -251,4 +267,4 @@ def get_user_bookings(
 
     return {
         "bookings": bookings
-}
+    }
