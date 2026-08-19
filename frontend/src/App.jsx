@@ -9,6 +9,7 @@ import DistrictPlanner from "./pages/DistrictPlanner.jsx";
 import PlanTripPage from "./pages/PlanTripPage";
 import BookingPage from "./pages/BookingPage";
 import RecommendationPage from "./pages/RecommendationPage";
+import StoriesPage from "./pages/StoriesPage.jsx";
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/plan-trip/:slug" element={<PlanTripPage />} />
         <Route path="/booking/:slug" element={<BookingPage />} />
         <Route path="/recommendations" element={<RecommendationPage />} />
+        <Route path="/stories" element={<StoriesPage />} />
       </Routes>
     </Router>
   );

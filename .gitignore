@@ -39,3 +39,9 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Large video files
+frontend/public/videos/*.mp4
+frontend/public/videos/*.mov
+frontend/public/videos/*.avi
+frontend/public/videos/*.mkv
