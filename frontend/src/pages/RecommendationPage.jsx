@@ -772,7 +772,9 @@ const interestImages = {
             </div>
           </section>
 
-          {/* TRAVEL STYLE */}
+
+
+{/* TRAVEL STYLE */}
 
 <section className="space-y-6">
 
@@ -786,8 +788,8 @@ const interestImages = {
     </p>
   </div>
 
-  <div className="flex flex-wrap gap-4">
-
+  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl">
+    
     {travelOptions.map((option) => {
 
       const Icon = option.icon;
@@ -804,15 +806,15 @@ const interestImages = {
               option.id
             )
           }
-          className={`group relative w-[118px] h-[132px]
+          className={`group relative w-full aspect-[118/132]
             rounded-[22px]
-            border
+            border-2
             flex flex-col items-center justify-center
             transition-all duration-300 ease-out
             ${
               selected
-                ? "border-[#236b50] bg-[#236b50] shadow-[0_12px_28px_rgba(35,107,80,0.25)] -translate-y-1"
-                : "border-[#ead8d0] bg-[#fffaf7] shadow-[0_5px_18px_rgba(71,45,35,0.06)] hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(71,45,35,0.12)]"
+                ? "border-amber-600 bg-[#236b50] shadow-[0_12px_28px_rgba(35,107,80,0.25)] -translate-y-1"
+                : "border-amber-300/60 bg-[#fffaf7] shadow-[0_5px_18px_rgba(71,45,35,0.06)] hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(71,45,35,0.12)] hover:border-amber-400/80"
             }`}
         >
 
