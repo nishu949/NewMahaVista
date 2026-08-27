@@ -5,7 +5,8 @@ import BottomSlider from "../Components/BottomSlider";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCities } from "../services/api";
-import KidsSection from '/src/Components/KidsSection.jsx';
+import KidsSection from "/src/Components/KidsSection.jsx";
+import RecommendationCard from "../Components/RecommendationCard";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -23,32 +24,55 @@ const HomePage = () => {
         setLoading(false);
       }
     };
+
     fetchCities();
   }, []);
 
   return (
     <div className="min-h-screen bg-[#f8f5ef]">
+
+      {/* Navbar */}
       <div className="sticky top-0 z-50 backdrop-blur-md bg-white/70 shadow-sm">
         <Navbar />
       </div>
 
       <main className="w-full mt-6 grid grid-cols-12 gap-4 px-2 md:px-4">
-        {/* Added section IDs for navigation */}
-        <div id="map-section" className="col-span-12 scroll-mt-20">
+
+        {/* ================= MAP ================= */}
+        <div
+          id="map-section"
+          className="col-span-12 scroll-mt-20"
+        >
           <MapSection />
         </div>
-        
-        <div id="kids-section" className="col-span-12 scroll-mt-20">
+
+        {/* ================= PERSONALIZED RECOMMENDATIONS ================= */}
+        <div className="col-span-12">
+          <RecommendationCard />
+        </div>
+
+        {/* ================= KIDS CORNER ================= */}
+        <div
+          id="kids-section"
+          className="col-span-12 scroll-mt-20"
+        >
           <KidsSection />
         </div>
-        
-        <div id="shop-section" className="col-span-12 scroll-mt-20">
+
+        {/* ================= SHOP ================= */}
+        <div
+          id="shop-section"
+          className="col-span-12 scroll-mt-20"
+        >
           <ShopSection />
         </div>
 
-        <div id="bookings-section" className="col-span-12 scroll-mt-20">
+        {/* ================= BOOKINGS ================= */}
+        <div
+          id="bookings-section"
+          className="col-span-12 scroll-mt-20"
+        >
           {/* Add your Bookings component here when ready */}
-         
         </div>
 
       </main>

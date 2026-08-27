@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 
 import { recommendationApi } from "../services/recommendationApi";
+import Navbar from "../Components/Navbar";
 
 const RecommendationPage = () => {
   const navigate = useNavigate();
@@ -67,16 +68,6 @@ const RecommendationPage = () => {
     "December",
   ];
 
-  // const defaultInterests = [
-  //   "Nature",
-  //   "Heritage",
-  //   "Culture",
-  //   "Food",
-  //   "Wildlife",
-  //   "Beaches",
-  //   "Adventure",
-  //   "Spiritual",
-  // ];
 
 const interestImages = {
   Adventure: "/images/adventure.avif",
@@ -469,9 +460,8 @@ const interestImages = {
     }
   };
 
-  /* ============================================================
-     DESTINATION IMAGE FALLBACK
-  ============================================================ */
+  /* DESTINATION IMAGE FALLBACK*/
+
 
   const getDestinationImage = (destination) => {
     return (
@@ -480,13 +470,14 @@ const interestImages = {
     );
   };
 
-  /* ============================================================
-     UI
-  ============================================================ */
+
 
   return (
+    
     <div className="min-h-screen bg-[#fff8f6] text-[#2c160e] antialiased pb-32">
-
+    <div className="sticky top-0 z-50 backdrop-blur-md bg-white/70 shadow-sm">
+      <Navbar />
+    </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
@@ -539,47 +530,7 @@ const interestImages = {
         }
       `}</style>
 
-      {/* ============================================================
-          NAVBAR
-      ============================================================ */}
-
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff8f6]/85 backdrop-blur-xl border-b border-[#dec0b1]/30">
-        <div className="max-w-[1400px] mx-auto h-16 px-5 md:px-10 flex items-center justify-between">
-
-          <button
-            className="w-10 h-10 rounded-full flex items-center justify-center text-[#574237] hover:bg-[#ffe9e3] transition"
-            aria-label="Menu"
-          >
-            <Menu size={21} />
-          </button>
-
-          <button
-            onClick={() =>
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              })
-            }
-            className="maha-display text-xl md:text-2xl font-bold text-[#9a4600]"
-          >
-            Maharashtra Explorer
-          </button>
-
-          <button
-            className="w-10 h-10 rounded-full bg-[#ffe9e3] flex items-center justify-center text-[#9a4600] hover:bg-[#ffdbd0] transition"
-            aria-label="Profile"
-          >
-            <User size={19} />
-          </button>
-
-        </div>
-      </header>
-
-      {/* ============================================================
-          MAIN
-      ============================================================ */}
-
-      <main className="pt-24 px-5 md:px-10 max-w-[1400px] mx-auto space-y-16 md:space-y-20">
+      <main className="pt-6 px-3 md:px-5 max-w-[1800px] mx-auto space-y-16 md:space-y-20">
 
         {/* ============================================================
             HERO

@@ -1,132 +1,69 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import MatchScore from './MatchScore';
+import { Sparkles, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-// const RecommendationCard = ({ recommendation, index }) => {
-//   const navigate = useNavigate();
-//   const [imageError, setImageError] = useState(false);
-  
-//   const { destination, score, reasons, festival } = recommendation;
-  
-//   const handleExplore = () => {
-//     navigate(`/city/${destination.slug || destination.district?.toLowerCase()}`);
-//   };
-  
-//   const handleAddToTrip = () => {
-//     alert(`Added ${destination.name} to your trip!`);
-//   };
-  
-//   const handleWatchStory = () => {
-//     navigate('/stories');
-//   };
-  
-//   return (
-//     <div className="group bg-white rounded-2xl overflow-hidden border border-[#E9DAC3] hover:border-[#C1502D] shadow-[0_2px_10px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.1)] transition-all duration-300">
-      
-//       {/* Image */}
-//       <div className="relative h-44 md:h-48 overflow-hidden bg-[#FBF4E8]">
-//         <img
-//           src={imageError ? '/images/placeholder.jpg' : destination.image_url}
-//           alt={destination.name}
-//           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-//           onError={() => setImageError(true)}
-//         />
-        
-//         {/* Rank */}
-//         {index < 3 && (
-//           <div className="absolute top-2 left-2">
-//             <div className={`px-2.5 py-1 rounded-full text-[10px] font-bold text-white shadow-lg ${
-//               index === 0 ? 'bg-gradient-to-r from-yellow-400 to-orange-500' :
-//               index === 1 ? 'bg-gradient-to-r from-gray-300 to-gray-400' :
-//               'bg-gradient-to-r from-amber-600 to-amber-700'
-//             }`}>
-//               #{index + 1}
-//             </div>
-//           </div>
-//         )}
-        
-//         {/* Score */}
-//         <div className="absolute bottom-2 right-2">
-//           <MatchScore score={score} size="sm" />
-//         </div>
-        
-//         {/* Festival Badge */}
-//         {festival && (
-//           <div className="absolute top-2 right-2">
-//             <div className="px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[9px] font-bold shadow-lg animate-pulse">
-//               🎉 Festival
-//             </div>
-//           </div>
-//         )}
-//       </div>
-      
-//       {/* Content */}
-//       <div className="p-4">
-//         <div className="flex items-start justify-between gap-2">
-//           <div className="min-w-0">
-//             <h4 className="font-display text-base font-bold text-[#20263F] truncate group-hover:text-[#C1502D] transition-colors">
-//               {destination.name}
-//             </h4>
-//             <p className="font-body text-xs text-[#8A5A3E] truncate">
-//               {destination.district}, Maharashtra
-//             </p>
-//           </div>
-//           <span className="font-body text-[10px] font-bold text-[#C1502D] bg-[#FBF4E8] px-2.5 py-1 rounded-full whitespace-nowrap">
-//             {Math.round(score)}%
-//           </span>
-//         </div>
-        
-//         {/* Categories */}
-//         <div className="flex flex-wrap gap-1 mt-2">
-//           {(destination.categories || []).slice(0, 3).map((category, i) => (
-//             <span
-//               key={i}
-//               className="px-2 py-0.5 bg-[#FBF4E8] text-[9px] font-medium text-[#5A3A25] rounded-full border border-[#E9DAC3]"
-//             >
-//               {category}
-//             </span>
-//           ))}
-//           {(destination.categories || []).length > 3 && (
-//             <span className="px-2 py-0.5 bg-[#FBF4E8] text-[9px] font-medium text-[#5A3A25] rounded-full border border-[#E9DAC3]">
-//               +{destination.categories.length - 3}
-//             </span>
-//           )}
-//         </div>
-        
-//         {/* Reasons */}
-//         <div className="mt-2 space-y-0.5">
-//           {reasons && reasons.slice(0, 2).map((reason, i) => (
-//             <div key={i} className="flex items-start gap-1">
-//               <span className="text-green-600 text-[10px]">✓</span>
-//               <p className="font-body text-[10px] text-[#5A3A25] line-clamp-1">{reason}</p>
-//             </div>
-//           ))}
-//         </div>
-        
-//         {/* Buttons */}
-//         <div className="mt-3 flex gap-1.5">
-//           <button
-//             onClick={handleExplore}
-//             className="flex-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#C1502D] to-[#A8431F] text-white text-[10px] font-semibold hover:shadow-md transition-all duration-200"
-//           >
-//             Explore
-//           </button>
-//           <button
-//             onClick={handleAddToTrip}
-//             className="px-3 py-1.5 rounded-full bg-white border border-[#C1502D] text-[#C1502D] text-[10px] font-semibold hover:bg-[#C1502D] hover:text-white transition-all duration-200"
-//           >
-//             + Trip
-//           </button>
-//           <button
-//             onClick={handleWatchStory}
-//             className="px-3 py-1.5 rounded-full bg-[#FBF4E8] border border-[#E9DAC3] text-[#5A3A25] text-[10px] font-semibold hover:bg-[#F3E5CC] transition-all duration-200"
-//           >
-//             🎬
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+const RecommendationCard = () => {
+  const navigate = useNavigate();
 
-// export default RecommendationCard;
+  return (
+  <section className="w-full py-6 md:py-10">
+  <button
+    onClick={() => navigate("/recommendations")}
+    className="group relative w-full min-h-[280px] md:min-h-[330px] rounded-[24px] overflow-hidden text-left shadow-[0_8px_30px_rgba(93,64,55,0.12)] hover:shadow-[0_14px_40px_rgba(93,64,55,0.18)] transition-all duration-500 hover:-translate-y-1"
+  >
+    {/* Background Image */}
+    <img
+      src="/images/Maharashtra-scaled.jpg"
+      alt="Explore Maharashtra"
+      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+    />
+
+    {/* Warm overlay */}
+    <div className="absolute inset-0 bg-gradient-to-r from-[#3d2118]/95 via-[#5a2e1d]/75 to-[#9a4600]/35" />
+
+    {/* Content */}
+    <div className="relative z-10 min-h-[280px] md:min-h-[330px] p-7 md:p-10 lg:p-12 flex items-center">
+      <div className="max-w-2xl">
+
+        <div className="inline-flex items-center gap-2 mb-4">
+          <span className="w-9 h-9 rounded-full bg-[#fff8f6]/15 backdrop-blur-md border border-white/20 flex items-center justify-center">
+            <Sparkles
+              size={17}
+              className="text-[#ffbd91]"
+            />
+          </span>
+
+          <span className="maha-body text-xs md:text-sm uppercase tracking-[0.18em] font-bold text-[#ffbd91]">
+            Personalized For You
+          </span>
+        </div>
+
+        <h2 className="maha-display text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1] tracking-[-0.035em] text-white">
+          Find places
+          <br />
+          <span className="text-[#ffb68d]">
+            made for you.
+          </span>
+        </h2>
+
+        <p className="maha-body text-sm md:text-base text-white/80 mt-5 max-w-xl leading-relaxed">
+          Tell us what you love, when you're travelling,
+          and how you like to explore. We'll find the
+          Maharashtra destinations that match you best.
+        </p>
+
+        <div className="mt-7 inline-flex items-center gap-3 bg-[#f47920] hover:bg-[#e86b13] text-white px-6 py-3.5 rounded-xl font-bold text-sm md:text-base shadow-[0_8px_20px_rgba(244,121,32,0.25)] transition-all duration-300 group-hover:gap-4">
+          Plan My Journey
+          <ArrowRight size={18} />
+        </div>
+
+      </div>
+    </div>
+
+    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#f47920] via-[#ffb68d] to-transparent" />
+
+  </button>
+</section>
+  );
+};
+
+export default RecommendationCard;

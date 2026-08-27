@@ -41,48 +41,37 @@ const Navbar = () => {
   }, []);
 
   // ================= MENU ITEMS =================
-  const menu = [
-    {
-      name: "Explore Map",
-      path: "/home",
-      sectionId: "map-section",
-    },
-
-    // Heritage Quiz removed from navbar
-    // {
-    //   name: "Heritage Quiz",
-    //   path: "/home",
-    //   sectionId: "quiz-section",
-    // },
-
-    {
-      name: "Bazaar",
-      path: "/home",
-      sectionId: "shop-section",
-    },
-
-    {
-      name: "Kids Corner",
-      path: "/home",
-      sectionId: "kids-section",
-    },
-
-    {
-      name: "Artist Shows",
-      path: "/home",
-      sectionId: "artist-section",
-    },
-
-    ...(isLoggedIn
-      ? [
-          {
-            name: "Your Bookings",
-            path: "/my-bookings",
-            sectionId: "bookings-section",
-          },
-        ]
-      : []),
-  ];
+const menu = [
+  {
+    name: "Explore Map",
+    path: "/home",
+    sectionId: "map-section",
+  },
+  {
+    name: "Bazaar",
+    path: "/home",
+    sectionId: "shop-section",
+  },
+  {
+    name: "Kids Corner",
+    path: "/home",
+    sectionId: "kids-section",
+  },
+  {
+    name: "Recommendation",
+    path: "/recommendations",
+    sectionId: "recommendation-card", // ← Fixed spelling
+  },
+  ...(isLoggedIn
+    ? [
+        {
+          name: "Your Bookings",
+          path: "/my-bookings",
+          sectionId: "bookings-section",
+        },
+      ]
+    : []),
+];
 
   // ================= SMOOTH SCROLL =================
   const scrollToSection = (sectionId) => {
@@ -108,6 +97,8 @@ const Navbar = () => {
     }
   };
 
+  
+
   // ================= LOGOUT =================
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -121,45 +112,52 @@ const Navbar = () => {
 
   // ================= NAVIGATION =================
   const handleNavClick = (e, item) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // ============================================
-    // YOUR BOOKINGS
-    // This is a separate page.
-    // ============================================
-    if (item.path === "/my-bookings") {
-      navigate("/my-bookings");
-      setActiveSection("bookings-section");
-      return;
-    }
+  // ============================================
+  // YOUR BOOKINGS - Separate page
+  // ============================================
+  if (item.path === "/my-bookings") {
+    navigate("/my-bookings");
+    setActiveSection("bookings-section");
+    return;
+  }
 
-    // ============================================
-    // HOMEPAGE SECTIONS
-    // ============================================
+  // ============================================
+  // RECOMMENDATIONS - Separate page
+  // ============================================
+  if (item.path === "/recommendations") {
+    navigate("/recommendations");
+    setActiveSection("recommendation-card");
+    return;
+  }
 
-    // If user is on another page,
-    // navigate to homepage first.
-    if (
-      window.location.pathname !== "/home" &&
-      window.location.pathname !== "/"
-    ) {
-      navigate(`/home#${item.sectionId}`);
+  // ============================================
+  // HOMEPAGE SECTIONS
+  // ============================================
 
-      setTimeout(() => {
-        scrollToSection(item.sectionId);
-      }, 300);
-    } else {
-      // Already on homepage.
+  // If user is on another page, navigate to homepage first.
+  if (
+    window.location.pathname !== "/home" &&
+    window.location.pathname !== "/"
+  ) {
+    navigate(`/home#${item.sectionId}`);
+
+    setTimeout(() => {
       scrollToSection(item.sectionId);
+    }, 300);
+  } else {
+    // Already on homepage.
+    scrollToSection(item.sectionId);
 
-      // Update URL hash without reloading page.
-      window.history.pushState(
-        null,
-        "",
-        `#${item.sectionId}`
-      );
-    }
-  };
+    // Update URL hash without reloading page.
+    window.history.pushState(
+      null,
+      "",
+      `#${item.sectionId}`
+    );
+  }
+};
 
   return (
     <div className="w-full bg-gradient-to-b from-amber-100/80 via-orange-50/70 to-amber-50/60">
