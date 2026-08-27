@@ -148,3 +148,16 @@ class RecommendationPreferences(BaseModel):
     starting_city: Optional[str] = None
     adventure_level: Optional[str] = None
     avoid: Optional[List[str]] = []
+
+
+# ========== Admin Model ==========
+class Admin(MongoBase):
+    username: str
+    email: EmailStr
+    password: str  # Hashed password
+    full_name: str
+    is_super_admin: bool = False
+    is_active: bool = True
+    last_login: Optional[datetime] = None
+    role: str = "admin"  # admin, super_admin
+    permissions: List[str] = []  # ['manage_bookings', 'manage_users', 'manage_cities']

@@ -44,7 +44,7 @@ const BookingPage = () => {
   // ================= PERSONAL DETAILS =================
   const [formData, setFormData] = useState({
     full_name: "",
-    email: "",
+    email: localStorage.getItem("user") || "",
     phone: "",
     from_city: "",
     special_requests: "",
@@ -143,7 +143,7 @@ const BookingPage = () => {
     }
 
     if (!formData.email.trim()) {
-      setError("Please enter your email address.");
+      setError("Please login again. Email not found.");
       return;
     }
 
@@ -170,14 +170,12 @@ const BookingPage = () => {
         experience: experience,
         travel_date: travelDate,
         travellers: travellers,
-
+        user_id: localStorage.getItem("user") || "",  
         full_name: formData.full_name,
         email: formData.email,
         phone: formData.phone,
         from_city: formData.from_city,
-
-        special_requests:
-          formData.special_requests || null,
+        special_requests: formData.special_requests || null,
       };
 
       console.log("Sending booking:", bookingData);
@@ -207,11 +205,8 @@ const BookingPage = () => {
       setBookingSuccess(true);
     } catch (err) {
       console.error("Booking error:", err);
-
-      setError(
-        err.message ||
-          "Something went wrong. Please try again."
-      );
+      const errorMessage = typeof err === 'object' ? err.message || JSON.stringify(err) : String(err);
+      setError(errorMessage || "Something went wrong. Please try again.");
     } finally {
       setBookingLoading(false);
     }
@@ -357,6 +352,7 @@ const BookingPage = () => {
                       Select what you want to explore in{" "}
                       {city.name}
                     </p>
+
                   </div>
 
                 </div>
@@ -668,7 +664,7 @@ const BookingPage = () => {
                 </div>
 
 
-                {/* EMAIL */}
+                {/* EMAIL - AUTO-FILLED, READ ONLY */}
                 <div>
 
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -679,10 +675,13 @@ const BookingPage = () => {
                     type="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="you@example.com"
-                    className="w-full h-13 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none transition"
+                    readOnly
+                    className="w-full h-13 px-4 rounded-xl border border-gray-200 bg-gray-100 cursor-not-allowed outline-none"
                   />
+
+                  <p className="text-xs text-gray-400 mt-1">
+                    ✓ Auto-filled from your login account
+                  </p>
 
                 </div>
 

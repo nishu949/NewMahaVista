@@ -10,6 +10,13 @@ import PlanTripPage from "./pages/PlanTripPage";
 import BookingPage from "./pages/BookingPage";
 import RecommendationPage from "./pages/RecommendationPage";
 import StoriesPage from "./pages/StoriesPage.jsx";
+import MyBookingsPage from "./pages/MyBookingsPage.jsx";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminBookings from "./pages/admin/AdminBookings";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminCities from "./pages/admin/AdminCities";
+
 function App() {
   return (
     <Router>
@@ -27,6 +34,12 @@ function App() {
         <Route path="/booking/:slug" element={<BookingPage />} />
         <Route path="/recommendations" element={<RecommendationPage />} />
         <Route path="/stories" element={<StoriesPage />} />
+        <Route path="/my-bookings" element={<MyBookingsPage />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/bookings" element={<AdminBookings />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/cities" element={<AdminCities />} />
       </Routes>
     </Router>
   );

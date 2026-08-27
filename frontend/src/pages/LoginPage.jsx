@@ -35,7 +35,9 @@ export default function LoginPage() {
           alert("login successful");
 
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("user", loginUsername);
+          localStorage.setItem("user", data.user.email);
+          localStorage.setItem("userData", JSON.stringify(data.user));
+
 
           // Check if user was redirected here from another page
           const params = new URLSearchParams(window.location.search);
@@ -244,6 +246,15 @@ export default function LoginPage() {
               {isLogin ? "Sign Up" : "Login"}
             </button>
           </p>
+          <div className="mt-4 text-center">
+            <span className="text-gray-400 text-sm">Are you an admin? </span>
+              <button
+                  onClick={() => navigate("/admin/login")}
+                  className="text-emerald-600 hover:text-emerald-700 font-semibold text-sm transition"
+                   >
+                    Go to Admin Panel →
+              </button>
+          </div>
         </div>
       </div>
     </div>

@@ -10,33 +10,42 @@ from . import schemas, crud
 from .routes import story_routes
 from .routes import recommendation_routes
 from .routes import destination_routes
+from .routes import admin_routes  # ✅ IMPORT ADMIN ROUTES
+
 app = FastAPI()
 
+# ================= CORS =================
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
         "http://127.0.0.1:8000",
+        "http://localhost:8010",
         "http://127.0.0.1:8010",
-        "http://localhost:5174"
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ================= STATIC FILES =================
 # Serve videos from frontend public folder
-videos_path = "../frontend/public/videos"  # ← Points to frontend
+videos_path = "../frontend/public/videos"
 if os.path.exists(videos_path):
     app.mount("/videos", StaticFiles(directory=videos_path), name="videos")
     print(f"✅ Videos served from: {videos_path}")
 else:
     print(f"⚠️  Videos folder not found: {videos_path}")
 
+# ================= ROUTERS =================
 app.include_router(story_routes.router)
 app.include_router(recommendation_routes.router)
 app.include_router(destination_routes.router)
+app.include_router(admin_routes.router)  # ✅ ADD ADMIN ROUTER
 
+# ================= STARTUP =================
 @app.on_event("startup")
 async def startup_db_client():
     """Create indexes for better performance"""
@@ -67,6 +76,10 @@ async def startup_db_client():
         mongo_db["bookings"].create_index("city")
         mongo_db["bookings"].create_index("travel_date")
         mongo_db["bookings"].create_index("created_at")
+        
+        # Admin indexes
+        mongo_db["admins"].create_index("email", unique=True)
+        mongo_db["admins"].create_index("username", unique=True)
         
         print("✅ MongoDB indexes created")
     except Exception as e:
@@ -212,16 +225,8 @@ def test_db_connection():
         }
 
 # ========== Bookings ==========
-
-@app.post(
-    "/api/bookings",
-    response_model=schemas.BookingResponse,
-    status_code=status.HTTP_201_CREATED
-)
-def create_booking(
-    booking: schemas.BookingCreate,
-    db=Depends(get_db)
-):
+@app.post("/api/bookings", response_model=schemas.BookingResponse, status_code=status.HTTP_201_CREATED)
+def create_booking(booking: schemas.BookingCreate, db=Depends(get_db)):
     # Pricing based on selected experience
     if booking.experience == "Local Experience":
         price = 1999
@@ -235,36 +240,24 @@ def create_booking(
 
     # Calculate pricing
     experience_cost = price * booking.travellers
-
     taxes = 200
     service_fee = 99
-
     total = experience_cost + taxes + service_fee
 
     # Save booking
-    result = crud.create_booking(
-        db,
-        booking,
-        price,
-        taxes,
-        service_fee,
-        total
-    )
+    result = crud.create_booking(db, booking, price, taxes, service_fee, total)
 
     return {
         "message": "Booking created successfully",
         "booking_id": result["booking_id"],
         "status": result["status"]
-    }        
-
-
-@app.get("/api/bookings/{email}")
-def get_user_bookings(
-    email: str,
-    db=Depends(get_db)
-    ):
-    bookings = crud.get_bookings_by_email(db, email)
-
-    return {
-        "bookings": bookings
     }
+
+# ========== Get User Bookings ==========
+@app.get("/api/bookings")
+def get_user_bookings(
+    email: str = Query(..., description="User email to fetch bookings for"),
+    db=Depends(get_db)
+):
+    bookings = crud.get_bookings_by_email(db, email)
+    return bookings

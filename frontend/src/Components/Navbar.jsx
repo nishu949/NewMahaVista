@@ -38,7 +38,7 @@ const Navbar = () => {
     { name: "Kids Corner", path: "/home", sectionId: "kids-section" },
     { name: "Artist Shows", path: "/home", sectionId: "artist-section" },
     ...(isLoggedIn
-      ? [{ name: "Your Bookings", path: "/home", sectionId: "bookings-section" }]
+      ? [{ name: "Your Bookings", path: "/my-bookings", sectionId: "bookings-section" }]
       : []),
   ];
 
@@ -61,27 +61,47 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("user");
+    localStorage.removeItem("userData");
     setIsLoggedIn(false);
     navigate("/login");
   };
 
   // Handle navigation click
-  const handleNavClick = (e, item) => {
-    e.preventDefault();
-    
-    // Always navigate to home first if not already there
-    if (window.location.pathname !== "/home" && window.location.pathname !== "/") {
-      navigate(`/home#${item.sectionId}`);
-      setTimeout(() => {
-        scrollToSection(item.sectionId);
-      }, 300);
-    } else {
-      // If on home page, just scroll
+// Handle navigation click
+const handleNavClick = (e, item) => {
+  e.preventDefault();
+
+  // ================= YOUR BOOKINGS =================
+  // This is a separate page, so don't scroll to home.
+  if (item.path === "/my-bookings") {
+    navigate("/my-bookings");
+    setActiveSection("bookings-section");
+    return;
+  }
+
+  // ================= HOMEPAGE SECTIONS =================
+  // Always navigate to home first if not already there
+  if (
+    window.location.pathname !== "/home" &&
+    window.location.pathname !== "/"
+  ) {
+    navigate(`/home#${item.sectionId}`);
+
+    setTimeout(() => {
       scrollToSection(item.sectionId);
-      // Update URL hash without causing navigation
-      window.history.pushState(null, '', `#${item.sectionId}`);
-    }
-  };
+    }, 300);
+  } else {
+    // Already on home, just scroll
+    scrollToSection(item.sectionId);
+
+    // Update URL hash
+    window.history.pushState(
+      null,
+      "",
+      `#${item.sectionId}`
+    );
+  }
+};
 
   return (
     <div className="w-full bg-gradient-to-b from-amber-50/50 to-orange-50/30">

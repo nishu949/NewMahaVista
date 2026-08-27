@@ -134,6 +134,8 @@ class BookingCreate(BaseModel):
     travel_date: date
     travellers: int
 
+    user_id: str
+
     full_name: str
     email: EmailStr
     phone: str
@@ -197,3 +199,55 @@ class StoriesResponse(BaseModel):
     pagination: dict
     
     model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+
+# ========== Admin Schemas ==========
+
+class AdminLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class AdminRegister(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+    full_name: str
+    role: str = "admin"
+
+class AdminResponse(BaseModel):
+    id: str = Field(alias="_id")
+    username: str
+    email: EmailStr
+    full_name: str
+    role: str
+    is_active: bool
+    last_login: Optional[datetime] = None
+    created_at: datetime
+    
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
+
+class AdminUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    role: Optional[str] = None
+    is_active: Optional[bool] = None
+
+# ========== Admin Dashboard Stats ==========
+
+class DashboardStats(BaseModel):
+    total_users: int
+    total_bookings: int
+    total_cities: int
+    total_revenue: float
+    pending_bookings: int
+    confirmed_bookings: int
+    completed_bookings: int
+    cancelled_bookings: int
+    recent_bookings: List[dict]
+    bookings_by_city: List[dict]
+    monthly_revenue: List[dict]
+
+# ========== Admin Booking Update ==========
+
+class AdminBookingUpdate(BaseModel):
+    status: str  # pending, confirmed, completed, cancelled

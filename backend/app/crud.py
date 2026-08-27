@@ -417,11 +417,21 @@ def create_booking(db, booking_data, price, taxes, service_fee, total):
     }
 
 # ========== User Bookings ==========
-def get_bookings_by_email(db, email: str):
-    """Get all bookings made by a user using their email"""
+# ========== GET BOOKINGS BY USER EMAIL ==========
+
+# ========== GET BOOKINGS BY USER EMAIL ==========
+
+def get_bookings_by_email(db, email):
+    """Get all bookings made by a specific user"""
     bookings = list(
         db["bookings"]
         .find({"email": email})
         .sort("created_at", -1)
     )
-    return serialize_list(bookings)
+
+    # Convert ObjectId to string for JSON serialization
+    for booking in bookings:
+        booking["_id"] = str(booking["_id"])  # ✅ Convert ObjectId to string
+        booking["booking_id"] = booking["_id"]  # Keep booking_id for consistency
+
+    return bookings
