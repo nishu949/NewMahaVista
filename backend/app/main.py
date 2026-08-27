@@ -4,14 +4,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from typing import Optional
 import os
-
+from .routes import mystery
 from .database import mongo_db, get_db
 from . import schemas, crud
 from .routes import story_routes
 from .routes import recommendation_routes
 from .routes import destination_routes
 from .routes import admin_routes  # ✅ IMPORT ADMIN ROUTES
+from dotenv import load_dotenv
 
+load_dotenv()
 app = FastAPI()
 
 # ================= CORS =================
@@ -44,6 +46,23 @@ app.include_router(story_routes.router)
 app.include_router(recommendation_routes.router)
 app.include_router(destination_routes.router)
 app.include_router(admin_routes.router)  # ✅ ADD ADMIN ROUTER
+app.include_router(mystery.router)
+
+# Serve generated AI videos
+generated_videos_path = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)),
+    "generated_videos"
+)
+
+os.makedirs(generated_videos_path, exist_ok=True)
+
+app.mount(
+    "/generated-videos",
+    StaticFiles(directory=generated_videos_path),
+    name="generated-videos"
+)
+
+print(f"✅ Generated videos served from: {generated_videos_path}")
 
 # ================= STARTUP =================
 @app.on_event("startup")
@@ -131,14 +150,28 @@ def get_products_by_category(category: str, db=Depends(get_db)):
     return products
 
 # ========== Questions ==========
+# app/main.py - Updated get_questions endpoint
+
+# ========== Questions ==========
 @app.get("/questions", response_model=list[schemas.QuestionResponse])
 def get_questions(category: Optional[str] = Query(None), db=Depends(get_db)):
     query = {}
     if category:
         query["category"] = category
     questions = list(mongo_db["questions"].find(query))
+    
     for question in questions:
         question["_id"] = str(question["_id"])
+        
+        # Convert option objects to strings
+        option_keys = ['option_a', 'option_b', 'option_c', 'option_d']
+        for key in option_keys:
+            if key in question:
+                # If the option is a dict, extract the text
+                if isinstance(question[key], dict):
+                    question[key] = question[key].get('text', '')
+                # If it's already a string, keep it as is
+    
     return questions
 
 # ========== Cities ==========

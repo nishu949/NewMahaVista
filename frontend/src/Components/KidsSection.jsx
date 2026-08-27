@@ -21,9 +21,34 @@ const KidsSection = () => {
   };
 
   const sampleStories = [
-    { id: 1, title: "Shaniwar Wada: The Maratha Legacy", category: "Heritage", duration: "1 min", thumbnail: "🏰", views: "89k" },
-    { id: 2, title: "Ganesh Festival Celebration", category: "Festivals", duration: "50 sec", thumbnail: "🐘", views: "210k" },
-    { id: 3, title: "Maharashtrian Cuisine Journey", category: "Food", duration: "2 min", thumbnail: "🍛", views: "78k" },
+    {
+      id: 1,
+      title: "Ratnagiri",
+      category: "Heritage",
+      duration: "1 min",
+      video_url: "/videos/Ratnagiri.mp4",
+    },
+    {
+      id: 2,
+      title: "Ganesh Festival Celebration",
+      category: "Festivals",
+      duration: "50 sec",
+      video_url: "/videos/PuneGaneshUtsav.mp4",
+    },
+    {
+      id: 4,
+      title: "Maharashtrian Cuisine Journey",
+      category: "Food",
+      duration: "2 min",
+      video_url: "/videos/FoodCulture.mp4",
+    },
+    {
+      id: 3,
+      title: "Mumbai :The City of Joy",
+      category: "culture",
+      duration: "2 min",
+      video_url: "/videos/Mumbai.mp4",
+    },
   ];
 
   const featureCards = [
@@ -157,15 +182,32 @@ const KidsSection = () => {
                 <h4 className="font-body text-xs font-semibold text-[#8A5A3E] uppercase tracking-wider mb-3">
                   More stories to explore
                 </h4>
-                <div className="space-y-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {sampleStories.map((story) => (
                     <button
                       key={story.id}
                       onClick={() => navigate("/stories")}
                       className="w-full group flex items-center gap-3 bg-[#FBF4E8] hover:bg-[#F3E5CC] rounded-xl p-2.5 border border-transparent hover:border-[#E9A23B] transition-all duration-200 text-left"
                     >
-                      <div className="w-11 h-11 rounded-lg bg-white flex items-center justify-center text-xl shrink-0 border border-[#E9DAC3]">
-                        {story.thumbnail}
+                      <div className="relative w-25 h-25 rounded-lg overflow-hidden bg-[#20263F] shrink-0 border border-[#E9DAC3]">
+                        {story.video_url ? (
+                          <video
+                            src={story.video_url}
+                            muted
+                            autoPlay
+                            loop
+                            playsInline
+                            preload="metadata"
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-white flex items-center justify-center text-xl">
+                            {story.thumbnail}
+                          </div>
+                        )}
+
+                        {/* subtle video overlay */}
+                        <div className="absolute inset-0 bg-black/10" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-body text-[13px] font-semibold text-[#20263F] truncate">
@@ -175,10 +217,7 @@ const KidsSection = () => {
                           <span className="font-body text-[11px] text-[#8A5A3E] flex items-center gap-1">
                             <Clock className="w-3 h-3" /> {story.duration}
                           </span>
-                          <span className="text-[#D9C6A3]">•</span>
-                          <span className="font-body text-[11px] text-[#8A5A3E] flex items-center gap-1">
-                            <Eye className="w-3 h-3" /> {story.views}
-                          </span>
+                        
                         </div>
                       </div>
                       <span className="w-8 h-8 rounded-full bg-[#C1502D] text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -218,27 +257,24 @@ const KidsSection = () => {
                   <button
                     key={item.title}
                     onClick={() => setSelectedSubtopic(item.title)}
-                    className={`group relative overflow-hidden rounded-2xl p-4 text-center transition-all duration-300 border-3 shadow-lg ${
-                      active
-                        ? `bg-gradient-to-br ${item.color} border-[#C1502D] scale-105 feature-card-glow`
-                        : "bg-white/90 border-[#C4A88A] hover:scale-105 hover:shadow-xl hover:border-[#C1502D]"
-                    }`}
+                    className={`group relative overflow-hidden rounded-2xl p-4 text-center transition-all duration-300 border-3 shadow-lg ${active
+                      ? `bg-gradient-to-br ${item.color} border-[#C1502D] scale-105 feature-card-glow`
+                      : "bg-white/90 border-[#C4A88A] hover:scale-105 hover:shadow-xl hover:border-[#C1502D]"
+                      }`}
                   >
                     {/* Background glow effect on hover */}
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color} blur-xl`} />
-                    
+
                     <div className="relative z-10">
                       <div className="text-4xl mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                         {item.emoji}
                       </div>
-                      <div className={`font-body text-base font-bold transition-colors duration-300 ${
-                        active ? "text-white" : "text-[#3D2415] group-hover:text-[#C1502D]"
-                      }`}>
+                      <div className={`font-body text-base font-bold transition-colors duration-300 ${active ? "text-white" : "text-[#3D2415] group-hover:text-[#C1502D]"
+                        }`}>
                         {item.title}
                       </div>
-                      <div className={`font-body text-xs font-medium transition-colors duration-300 ${
-                        active ? "text-white/80" : "text-[#6B4F3A] group-hover:text-[#8A3A1E]"
-                      }`}>
+                      <div className={`font-body text-xs font-medium transition-colors duration-300 ${active ? "text-white/80" : "text-[#6B4F3A] group-hover:text-[#8A3A1E]"
+                        }`}>
                         {item.subtitle}
                       </div>
                     </div>

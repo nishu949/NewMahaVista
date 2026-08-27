@@ -16,12 +16,13 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminCities from "./pages/admin/AdminCities";
+import MaharashtraMystery from "./pages/MaharashtraMystery.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
-       
+
         <Route path="/" element={<Navigate to="/home" />} />
 
         <Route path="/login" element={<LoginPage />} />
@@ -34,12 +35,20 @@ function App() {
         <Route path="/booking/:slug" element={<BookingPage />} />
         <Route path="/recommendations" element={<RecommendationPage />} />
         <Route path="/stories" element={<StoriesPage />} />
+
+        {/* User */}
         <Route path="/my-bookings" element={<MyBookingsPage />} />
+
+        {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/cities" element={<AdminCities />} />
+
+        {/* Maharashtra Mystery */}
+        <Route path="/mystery" element={<MaharashtraMystery />} />
+
       </Routes>
     </Router>
   );

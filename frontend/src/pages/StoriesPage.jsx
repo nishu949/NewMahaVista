@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Navbar from "../Components/Navbar"
 const API_BASE_URL = "http://127.0.0.1:8000";
 
-/* ============================================================
-   STORIES PAGE
-============================================================ */
+/* STORIES PAGE */
 
 const StoriesPage = () => {
   const navigate = useNavigate();
@@ -18,11 +16,7 @@ const StoriesPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  /* ==========================================================
-     FETCH ALL STORIES
-     Backend doesn't have GET /api/stories.
-     We first get cities and then stories for every city.
-  ========================================================== */
+  /* FETCH ALL STORIES ,Backend doesn't have GET /api/stories.We first get cities and then stories for every city. */
 
   useEffect(() => {
     fetchAllStories();
@@ -95,9 +89,7 @@ const StoriesPage = () => {
     }
   };
 
-  /* ==========================================================
-     CATEGORIES
-  ========================================================== */
+  /*  CATEGORIES*/
 
   const categories = useMemo(() => {
     const uniqueCategories = [
@@ -111,9 +103,7 @@ const StoriesPage = () => {
     return ["All", ...uniqueCategories];
   }, [stories]);
 
-  /* ==========================================================
-     FILTER STORIES
-  ========================================================== */
+  /* FILTER STORIES */
 
   const filteredStories = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
@@ -141,25 +131,19 @@ const StoriesPage = () => {
     });
   }, [stories, searchTerm, selectedCategory]);
 
-  /* ==========================================================
-     FEATURED STORY
-  ========================================================== */
+  /* FEATURED STORY */
 
   const featuredStory =
     stories.find((story) => story.is_featured) ||
     stories[0];
 
-  /* ==========================================================
-     LOADING
-  ========================================================== */
+  /* LOADING */
 
   if (loading) {
     return <StoryPageSkeleton />;
   }
 
-  /* ==========================================================
-     ERROR
-  ========================================================== */
+  /*  ERROR */
 
   if (error) {
     return (
@@ -188,11 +172,7 @@ const StoriesPage = () => {
 
   return (
     <div className="min-h-screen bg-[#f7f4ec] text-[#153f2d]">
-
-      {/* =====================================================
-          TOP NAV
-      ===================================================== */}
-
+<Navbar/>
       <header className="max-w-[1350px] mx-auto px-6 md:px-10">
 
         <div className="h-[82px] flex items-center justify-between border-b border-[#ddd8ca]">

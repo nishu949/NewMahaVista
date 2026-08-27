@@ -212,9 +212,8 @@ export default function QuizPage() {
     }
 
     fetch(
-      `http://127.0.0.1:8000/questions?category=${encodeURIComponent(
-        selectedSubtopic
-      )}`
+  `http://localhost:8000/questions?category=${encodeURIComponent(selectedSubtopic)}`
+
     )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch");

@@ -56,6 +56,7 @@ def get_db():
 # Add these collections after your existing collections
 destinations_collection = mongo_db["destinations"]
 festivals_collection = mongo_db["festivals"]
+mysteries_collection =mongo_db["mysteries"]
 def serialize_doc(doc):
     """Convert MongoDB document to JSON serializable format"""
     if doc:
