@@ -167,7 +167,7 @@ const AdminUsers = () => {
   // =================================================
 
   return (
-    <div className="min-h-screen bg-[#f7f5ef] text-[#252a27]">
+    <div className="min-h-screen bg-[#F1E3D2] text-[#252a27]">
 
       {/* ================================================= */}
       {/* SIDEBAR */}
@@ -181,7 +181,7 @@ const AdminUsers = () => {
 
       <div className="ml-64">
 
-        <AdminNavbar admin={admin} />
+        {/* <AdminNavbar admin={admin} /> */}
 
         <main className="px-6 py-7 lg:px-8">
 

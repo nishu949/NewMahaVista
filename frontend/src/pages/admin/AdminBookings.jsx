@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "../../Components/admin/AdminSidebar";
-import AdminNavbar from "../../Components/admin/AdminNavbar";
+// import AdminNavbar from "../../Components/admin/AdminNavbar";
 import {
   Search,
   ChevronDown,
@@ -279,7 +279,7 @@ const AdminBookings = () => {
   // =================================================
 
   return (
-    <div className="min-h-screen bg-[#f7f5ef] text-[#252a27]">
+    <div className="min-h-screen bg-[#F1E3D2] text-[#252a27]">
 
       {/* SIDEBAR */}
 
@@ -289,68 +289,101 @@ const AdminBookings = () => {
 
       <div className="ml-64">
 
-        <AdminNavbar admin={admin} />
+        {/* <AdminNavbar admin={admin} /> */}
 
-        <main className="px-6 py-7 lg:px-8">
+       <main className="px-6 pb-7 lg:px-5">
 
           {/* ========================================= */}
-          {/* PAGE HEADER */}
+          {/* GOLDEN HERO BANNER (WITH BOOKINGS CONTENT) */}
           {/* ========================================= */}
 
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mt-7 relative overflow-hidden rounded-3xl shadow-xl border-2 border-amber-300/50 min-h-[230px]">
+            
+            {/* Background Image - Positioned on the right */}
+            <div 
+              className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+              style={{
+                backgroundImage: 'url("../images/MahaFort.png")',
+                backgroundPosition: '70% center',
+              }}
+            />
 
-            <div>
+            {/* White overlay gradient - fades from left (more white) to right (transparent) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/900 to-transparent" />
+            
+            {/* Extra overlay for left side to ensure text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-white/50 to-transparent" />
 
-              <div className="flex items-center gap-2 text-sm font-semibold text-[#15966b]">
-                <span className="h-2 w-2 rounded-full bg-[#15966b]" />
-                Travel Management
-              </div>
+            {/* Decorative elements */}
+            <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
+            <div className="absolute right-32 bottom-0 h-32 w-32 rounded-full bg-amber-300/10 blur-3xl" />
+            <div className="absolute -left-20 -bottom-20 h-48 w-48 rounded-full bg-amber-200/5 blur-2xl" />
 
-              <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#222723]">
-                Bookings
-              </h1>
+            {/* Pattern dots */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{
+              backgroundImage: 'radial-gradient(circle, #b8860b 1px, transparent 1px)',
+              backgroundSize: '24px 24px'
+            }} />
 
-              <p className="mt-1 text-sm text-gray-500">
-                Manage and monitor Maharashtra travel bookings.
-              </p>
+            {/* Border design */}
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
 
-            </div>
+            <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6 p-7 lg:p-8 z-10">
 
-            <div className="flex items-center gap-3">
+              <div className="flex-1">
 
-              <div className="rounded-2xl border border-[#e6e1d7] bg-white px-5 py-3 shadow-sm">
+                <div className="flex items-center gap-2 text-sm font-semibold text-[#15966b] mb-2">
+                  <span className="h-2 w-2 rounded-full bg-[#15966b]" />
+                  Travel Management
+                </div>
 
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400">
-                  Total Bookings
+                <h2 className="text-3xl font-extrabold tracking-tight text-[#252a27] font-serif">
+                  Bookings
+                </h2>
+
+                <p className="mt-1 text-sm text-[#8b7355]">
+                  Manage and monitor Maharashtra travel bookings.
                 </p>
 
-                <p className="mt-1 text-2xl font-extrabold text-[#252a27]">
-                  {bookings.length}
-                </p>
-
               </div>
 
-              <button
-                onClick={() => navigate("/home")}
-                className="hidden sm:flex items-center gap-2 rounded-2xl bg-[#15966b] px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#117c59]"
-              >
-                Explore
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
+              {/* Total Bookings & Explore */}
+              <div className="flex items-center gap-3 flex-shrink-0">
+
+                {/* Total Bookings */}
+                <div className="rounded-2xl border-2 border-[#e8dcc8] bg-white/80 backdrop-blur-sm px-5 py-3 shadow-sm hover:shadow-md transition-shadow">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8b7355]">
+                    Total Bookings
+                  </p>
+                  <p className="mt-1 text-2xl font-extrabold text-[#252a27]">
+                    {bookings.length}
+                  </p>
+                </div>
+
+                {/* Explore */}
+                <button
+                  onClick={() => navigate("/home")}
+                  className="flex items-center gap-2 rounded-2xl bg-[#15966b] px-5 py-3 text-sm font-bold text-white shadow-sm transition-all hover:shadow-md hover:scale-105"
+                >
+                  Explore
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+
+              </div>
 
             </div>
 
           </div>
 
           {/* ========================================= */}
-          {/* STAT CARDS */}
+          {/* STAT CARDS (Golden Borders Added) */}
           {/* ========================================= */}
 
           <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
 
             {/* Pending */}
 
-            <div className="rounded-3xl border border-[#eee9df] bg-white p-5 shadow-sm">
+            <div className="rounded-3xl border-2 border-amber-400/60 bg-white p-5 shadow-sm">
 
               <div className="flex items-center justify-between">
 
@@ -380,7 +413,7 @@ const AdminBookings = () => {
 
             {/* Confirmed */}
 
-            <div className="rounded-3xl border border-[#eee9df] bg-white p-5 shadow-sm">
+            <div className="rounded-3xl border-2 border-amber-400/60 bg-white p-5 shadow-sm">
 
               <div className="flex items-center justify-between">
 
@@ -410,7 +443,7 @@ const AdminBookings = () => {
 
             {/* Completed */}
 
-            <div className="rounded-3xl border border-[#eee9df] bg-white p-5 shadow-sm">
+            <div className="rounded-3xl border-2 border-amber-400/60 bg-white p-5 shadow-sm">
 
               <div className="flex items-center justify-between">
 
