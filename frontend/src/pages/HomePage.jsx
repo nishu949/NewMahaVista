@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { getCities } from "../services/api";
 import KidsSection from "/src/Components/KidsSection.jsx";
 import RecommendationCard from "../Components/RecommendationCard";
-
+import MysteryGameCard from "../Components/MysteryGameCard";
 const HomePage = () => {
   const navigate = useNavigate();
   const [cities, setCities] = useState([]);
@@ -51,6 +51,8 @@ const HomePage = () => {
           <RecommendationCard />
         </div>
 
+
+
         {/* ================= KIDS CORNER ================= */}
         <div
           id="kids-section"
@@ -74,6 +76,8 @@ const HomePage = () => {
         >
           {/* Add your Bookings component here when ready */}
         </div>
+
+
 
       </main>
     </div>

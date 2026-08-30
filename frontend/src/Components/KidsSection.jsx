@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Play, Sparkles, Trophy, Users, Clock, Eye, ChevronRight, Star, Flame } from "lucide-react";
+import { Play, Sparkles, Trophy, Users, Clock, Eye, ChevronRight, Star, Flame, LockKeyhole, ArrowRight } from "lucide-react";
 
 const KidsSection = () => {
   const navigate = useNavigate();
@@ -55,15 +55,6 @@ const KidsSection = () => {
     { emoji: "🏛️", title: "History", subtitle: "Mighty Forts", color: "from-amber-500 to-orange-600", borderColor: "border-amber-300" },
     { emoji: "🎭", title: "Culture", subtitle: "Living Arts", color: "from-purple-500 to-pink-600", borderColor: "border-purple-300" },
     { emoji: "🍛", title: "Cuisine", subtitle: "Flavor & Spice", color: "from-red-500 to-rose-600", borderColor: "border-red-300" },
-  ];
-
-  const culturalIcons = [
-    { icon: "🏯", label: "Forts" },
-    { icon: "🎨", label: "Warli Art" },
-    { icon: "💃", label: "Lavani" },
-    { icon: "🥘", label: "Cuisine" },
-    { icon: "🪷", label: "Heritage" },
-    { icon: "📿", label: "Traditions" },
   ];
 
   const handleStartQuiz = () => {
@@ -231,6 +222,7 @@ const KidsSection = () => {
           </div>
 
           {/* ============== RIGHT: QUIZ - IMPROVED FEATURE CARDS ============== */}
+                   {/* ============== RIGHT: QUIZ - IMPROVED FEATURE CARDS ============== */}
           <div className="bg-gradient-to-br from-[#E8D5C4] to-[#D4BBA5] rounded-2xl p-6 md:p-7 border border-[#C4A88A] shadow-[0_2px_0_#C4A88A]">
             <div className="inline-flex items-center gap-2 rounded-full bg-[#C1502D]/15 px-3.5 py-1.5 mb-4 border border-[#C1502D]/20">
               <Sparkles className="w-3.5 h-3.5 text-[#C1502D]" />
@@ -242,9 +234,6 @@ const KidsSection = () => {
             <h2 className="font-display text-3xl font-bold text-[#3D2415] leading-tight">
               Culture quiz
             </h2>
-            <p className="font-body text-sm text-[#5A3A25] mt-1">
-              Discover Maharashtra's heritage
-            </p>
             <p className="font-body text-sm leading-relaxed text-[#4D3220] mt-3">
               Test your knowledge of Maharashtra's magnificent forts, vibrant culture, and rich culinary traditions.
             </p>
@@ -292,27 +281,6 @@ const KidsSection = () => {
               })}
             </div>
 
-            {/* Cultural icons */}
-            <div className="mt-5">
-              <div className="flex items-center gap-2 mb-2.5">
-                <Flame className="w-4 h-4 text-[#C1502D]" />
-                <h4 className="font-body text-xs font-bold text-[#5A3A25] uppercase tracking-wider">
-                  Cultural treasures
-                </h4>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                {culturalIcons.map((item, index) => (
-                  <div
-                    key={index}
-                    className="rounded-xl p-2.5 text-center bg-white/80 border border-[#C4A88A] hover:border-[#C1502D] hover:shadow-md hover:bg-white transition-all duration-200"
-                  >
-                    <div className="text-2xl mb-0.5">{item.icon}</div>
-                    <span className="font-body text-[10px] font-medium text-[#5A3A25]">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* CTA */}
             <button
               onClick={handleStartQuiz}
@@ -325,9 +293,66 @@ const KidsSection = () => {
               <ChevronRight size={16} className={`transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`} />
             </button>
 
+            {/* ========== VISIBLE DOTTED SEPARATOR ========== */}
+            <div className="relative my-8">
+              <div 
+                className="absolute inset-0 flex items-center" 
+                aria-hidden="true"
+              >
+                <div className="w-full border-t-4 border-dotted border-[#8A3A1E]/50"></div>
+              </div>
+              <div className="relative flex justify-center">
+                <span className="px-3 bg-[#E8D5C4] font-body text-xs font-bold uppercase tracking-wider text-[#8A3A1E]">
+                  Or Play A Game
+                </span>
+              </div>
+            </div>
+
+            {/* ========== MYSTERY GAME CARD (BELOW BUTTON) ========== */}
+            <div className="mt-2 group relative overflow-hidden rounded-2xl border-2 border-[#C4A88A] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
+
+              <div className="relative z-10 flex items-start justify-between mb-3">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#C4A88A] text-[#965034] text-xs font-bold uppercase tracking-wider mb-2">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    Interactive Game
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-[#3D2415]">Maharashtra Mystery</h3>
+                </div>
+                
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C1502D]/10 border border-[#C1502D]/20 shrink-0">
+                  <LockKeyhole className="h-5 w-5 text-[#C1502D]" />
+                </div>
+              </div>
+
+              <div className="relative z-10 flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+                  <Trophy className="w-3.5 h-3.5" />
+                  500+ XP
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  3 Clues
+                </div>
+              </div>
+
+              <p className="relative z-10 text-sm text-[#72574c] leading-relaxed mb-4">
+                Can you guess the hidden secret of Maharashtra? Use clues wisely and become a top explorer!
+              </p>
+
+              <button
+                onClick={() => navigate("/mystery")} // <--- Change to your actual route
+                className="relative z-10 w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C1502D] to-[#A8431F] px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
+              >
+                Play Mystery
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
 
             {/* Topics */}
-            <div className="mt-4 pt-4 border-t border-[#C4A88A]/50 flex flex-wrap gap-2">
+            {/* <div className="mt-4 pt-4 border-t border-[#C4A88A]/50 flex flex-wrap gap-2">
               {["Forts", "Culture", "Cuisine", "History", "Traditions"].map((topic) => (
                 <span
                   key={topic}
@@ -336,7 +361,7 @@ const KidsSection = () => {
                   {topic}
                 </span>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
