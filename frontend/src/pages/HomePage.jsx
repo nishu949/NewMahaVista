@@ -8,6 +8,9 @@ import { getCities } from "../services/api";
 import KidsSection from "/src/Components/KidsSection.jsx";
 import RecommendationCard from "../Components/RecommendationCard";
 import MysteryGameCard from "../Components/MysteryGameCard";
+import Chatbot from "../Components/Chatbot/Chatbot";
+
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [cities, setCities] = useState([]);
@@ -80,6 +83,7 @@ const HomePage = () => {
 
 
       </main>
+      <Chatbot />
     </div>
   );
 };
