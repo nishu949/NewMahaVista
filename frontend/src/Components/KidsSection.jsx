@@ -309,47 +309,78 @@ const KidsSection = () => {
             </div>
 
             {/* ========== MYSTERY GAME CARD (BELOW BUTTON) ========== */}
-            <div className="mt-2 group relative overflow-hidden rounded-2xl border-2 border-[#C4A88A] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
+<div className="mt-2 group relative overflow-hidden rounded-2xl border-2 border-[#C4A88A] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+  <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
+  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
 
-              <div className="relative z-10 flex items-start justify-between mb-3">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#C4A88A] text-[#965034] text-xs font-bold uppercase tracking-wider mb-2">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Interactive Game
-                  </div>
-                  <h3 className="font-display text-xl font-bold text-[#3D2415]">Maharashtra Mystery</h3>
-                </div>
-                
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C1502D]/10 border border-[#C1502D]/20 shrink-0">
-                  <LockKeyhole className="h-5 w-5 text-[#C1502D]" />
-                </div>
-              </div>
+  {/* Two-column layout: content left, image right */}
+  <div className="relative z-10 flex flex-col sm:flex-row gap-5 items-stretch">
 
-              <div className="relative z-10 flex items-center gap-3 mb-3">
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
-                  <Trophy className="w-3.5 h-3.5" />
-                  500+ XP
-                </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  3 Clues
-                </div>
-              </div>
+    {/* LEFT: content */}
+    <div className="flex-1 flex flex-col min-w-0">
 
-              <p className="relative z-10 text-sm text-[#72574c] leading-relaxed mb-4">
-                Can you guess the hidden secret of Maharashtra? Use clues wisely and become a top explorer!
-              </p>
+      {/* Header */}
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#C4A88A] text-[#965034] text-xs font-bold uppercase tracking-wider mb-2">
+            <Sparkles className="w-3.5 h-3.5" />
+            Interactive Game
+          </div>
+          <h3 className="font-display text-xl font-bold text-[#3D2415]">
+            Maharashtra Mystery
+          </h3>
+        </div>
 
-              <button
-                onClick={() => navigate("/mystery")} // <--- Change to your actual route
-                className="relative z-10 w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C1502D] to-[#A8431F] px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
-              >
-                Play Mystery
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C1502D]/10 border border-[#C1502D]/20 shrink-0 sm:hidden">
+          <LockKeyhole className="h-5 w-5 text-[#C1502D]" />
+        </div>
+      </div>
+
+      {/* Fun stats */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+          <Trophy className="w-3.5 h-3.5" />
+          500+ XP
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+          <Sparkles className="w-3.5 h-3.5" />
+          3 Clues
+        </div>
+      </div>
+
+      {/* Description — with translucent backdrop */}
+      <p className="text-sm text-[#72574c] leading-relaxed mb-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/40">
+        Can you guess the hidden secret of Maharashtra? Use clues wisely and become a top explorer!
+      </p>
+
+      {/* CTA pushed to bottom of column */}
+      <button
+        onClick={() => navigate("/mystery")}
+        className="mt-auto w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C1502D] to-[#A8431F] px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
+      >
+        Play Mystery
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </div>
+
+    {/* RIGHT: image — wider column, full image visible */}
+    <div className="relative w-full sm:w-56 md:w-72 lg:w-80 shrink-0 overflow-hidden rounded-xl border border-[#C4A88A] shadow-sm bg-[#f8eadf]">
+      <img
+        src="/images/MystryImage.png"
+        alt="Maharashtra Mystery"
+        className="w-full h-48 sm:h-full object-contain transition-transform duration-700 group-hover:scale-105"
+        loading="lazy"
+      />
+      {/* Very subtle gradient for depth (won't obscure image) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#2d1a14]/10 via-transparent to-transparent pointer-events-none" />
+
+      {/* Lock icon badge (desktop only) */}
+      <div className="hidden sm:flex absolute top-2 right-2 h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm border border-[#E9DAC3]">
+        <LockKeyhole className="h-4 w-4 text-[#C1502D]" />
+      </div>
+    </div>
+  </div>
+</div>
 
             {/* Topics */}
             {/* <div className="mt-4 pt-4 border-t border-[#C4A88A]/50 flex flex-wrap gap-2">

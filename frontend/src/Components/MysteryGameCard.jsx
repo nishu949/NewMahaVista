@@ -6,30 +6,52 @@ const MysteryGameCard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="group relative overflow-hidden rounded-3xl border-2 border-[#e8dcc8] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-      
-      {/* Decorative Background */}
+    <>
+   
+    <div className="group relative overflow-hidden rounded-3xl border-2 border-[#e8dcc8] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl w-full max-w-sm">
+      {/* Decorative Background Elements */}
       <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
       <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-[#a45a24]/10 blur-2xl" />
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
 
+{/* --- IMAGE SECTION --- */}
+<div className="relative z-10 mb-5 overflow-hidden rounded-2xl border border-[#e8dcc8] shadow-sm">
+  <img
+  src="/images/MystryImage.png"
+  alt="Maharashtra Mystery"
+  className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+  />
+  {/* Gradient overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#2d1a14]/40 via-transparent to-transparent" />
+  
+  {/* Optional: Badge over the image */}
+  <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-[#e8dcc8] text-[#965034] text-[10px] font-bold uppercase tracking-wider">
+    <Sparkles className="w-3 h-3" />
+    New Adventure
+  </div>
+</div>
+
       {/* Header */}
-      <div className="relative z-10 flex items-start justify-between mb-5">
+      <div className="relative z-10 flex items-start justify-between mb-4">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#e8dcc8] text-[#965034] text-xs font-bold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             Interactive Game
           </div>
-          <h3 className="text-2xl font-extrabold text-[#2d1a14] font-serif">Maharashtra Mystery</h3>
-          <p className="text-sm text-[#8b7355] mt-1">Solve riddles, unlock clues, earn XP!</p>
+          <h3 className="text-2xl font-extrabold text-[#2d1a14] font-serif">
+            Maharashtra Mystery
+          </h3>
+          <p className="text-sm text-[#8b7355] mt-1">
+            Solve riddles, unlock clues, earn XP!
+          </p>
         </div>
-        
+
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#a45a24]/10 border border-[#a45a24]/20">
           <LockKeyhole className="h-6 w-6 text-[#a45a24]" />
         </div>
       </div>
 
-      {/* Fun stats (Placeholder) */}
+      {/* Fun stats */}
       <div className="relative z-10 flex items-center gap-4 mb-5">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-[#e8dcc8] text-xs font-bold text-[#965034]">
           <Trophy className="w-3.5 h-3.5" />
@@ -43,13 +65,14 @@ const MysteryGameCard = () => {
 
       {/* Description */}
       <p className="relative z-10 text-sm text-[#72574c] leading-relaxed mb-6">
-        Can you guess the hidden secret of Maharashtra? Use clues wisely and become a top explorer!
+        Can you guess the hidden secret of Maharashtra? Use clues wisely and
+        become a top explorer!
       </p>
 
       {/* CTA */}
       <div className="relative z-10">
         <button
-          onClick={() => navigate("/mystery")} // Change this to your actual route path
+          onClick={() => navigate("/mystery")}
           className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#7f3f2b] to-[#a45a24] px-5 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
         >
           Play Mystery
@@ -57,7 +80,20 @@ const MysteryGameCard = () => {
         </button>
       </div>
 
+      {/* Footer text */}
+      <div className="relative z-10 mt-4 text-center">
+        <span className="text-xs font-medium text-[#8b7355] tracking-wide">
+          Get a chance to become{" "}
+          <span className="text-[#7f3f2b] font-bold">
+            THE NEXT CHARACTER!
+          </span>
+        </span>
+        <span className="block text-[10px] text-[#a45a24]/70 mt-0.5">
+          Be the legend. Inspire explorers!
+        </span>
+      </div>
     </div>
+     </>
   );
 };
 
