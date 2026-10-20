@@ -41,9 +41,6 @@
 - [Core User Workflows](#core-user-workflows)
 - [Security and Privacy](#security-and-privacy)
 - [Troubleshooting](#troubleshooting)
-- [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
-- [License](#license)
 - [Acknowledgements](#acknowledgements)
 
 ---
@@ -106,7 +103,7 @@ The interactive map provides a visual way to explore geographical areas and dest
 
 **Screenshot placeholder**
 
-![Interactive map and destination discovery](docs/screenshots/interactive-map.png)
+![Interactive map and destination discovery](frontend/public/images/MapScreenshot.png)
 
 ### 2. Personalized Destination Recommendation System
 
@@ -127,7 +124,8 @@ The system evaluates destination suitability and can return a ranked list of rec
 
 **Screenshot placeholder**
 
-![Personalized destination recommendations](docs/screenshots/recommendations.png)
+![Personalized destination recommendations](frontend/public/images/RecomScreenshot.png)
+![]((frontend/public/images/RecomScreenshot1.png))
 
 ### 3. Festival Calendar
 
@@ -144,7 +142,7 @@ Festival dates can vary by year and local observance. The application should ide
 
 **Screenshot placeholder**
 
-![Festival calendar](docs/screenshots/festival-calendar.png)
+![Festival calendar](frontend/public/images/festival-calendar.png)
 
 ### 4. AI Tourism Assistant / Chatbot
 
@@ -162,7 +160,7 @@ AI-generated responses should be treated as assistance rather than a substitute 
 
 **Screenshot placeholder**
 
-![AI tourism assistant](docs/screenshots/ai-chatbot.png)
+![AI tourism assistant](frontend/public/images/ai-chatbot.png)
 
 ### 5. Kids' Animated Storytelling
 
@@ -180,7 +178,7 @@ The project concept includes Hindi voiceovers and AI-assisted video creation. Ac
 
 **Screenshot placeholder**
 
-![Kids' animated storytelling section](docs/screenshots/kids-storytelling.png)
+![Kids' animated storytelling section](frontend/public/images/kids-storytelling.png)
 
 ### 6. Maharashtra Culture Quiz
 
@@ -196,7 +194,7 @@ The quiz can be used by students, children, families, and anyone interested in l
 
 **Screenshot placeholder**
 
-![Maharashtra culture quiz](docs/screenshots/culture-quiz.png)
+![Maharashtra culture quiz](frontend/public/images/culture-quiz.png)
 
 ### 7. Maharashtra Mystery and Riddle Game
 
@@ -215,7 +213,7 @@ The exact scoring, daily reset rules, and winner-selection process depend on the
 
 **Screenshot placeholder**
 
-![Mystery and riddle game](docs/screenshots/mystery-riddle.png)
+![Mystery and riddle game](frontend/public/images/mystery-riddle.png)
 
 ### 8. Local Artist and Handicraft Marketplace
 
@@ -232,7 +230,7 @@ Product listings should provide accurate descriptions, images, pricing, availabi
 
 **Screenshot placeholder**
 
-![Local artist and handicraft marketplace](docs/screenshots/artist-marketplace.png)
+![Local artist and handicraft marketplace](frontend/public/images/artist-marketplace.png)
 
 ### 9. Destination Details and Trip-Planning Enquiries
 
@@ -250,7 +248,8 @@ Enquiry forms should clearly communicate what information is collected and shoul
 
 **Screenshot placeholder**
 
-![Destination planner and trip enquiry](docs/screenshots/trip-planner.png)
+![Destination planner and trip enquiry](frontend/public/images/trip-planner.png)(frontend/public/images/trip-planner1.png)
+(frontend/public/images/trip-planner2.png)
 
 ### 10. Authentication and User Access
 
@@ -260,7 +259,7 @@ Credentials and tokens must be handled securely. Never commit real passwords, ac
 
 **Screenshot placeholder**
 
-![Login and registration screens](docs/screenshots/authentication.png)
+![Login and registration screens](frontend/public/images/authentication.png)
 
 ### 11. Admin Dashboard
 
@@ -278,17 +277,17 @@ Only show metrics that are backed by actual data and available backend functiona
 
 **Screenshot placeholder**
 
-![Admin dashboard](docs/screenshots/admin-dashboard.png)
+![Admin dashboard](frontend/public/images/admin-dashboard.png)
 
 ### 12. Multilingual Support
 
 MahaVista aims to make tourism information more accessible to visitors who prefer different languages. The exact languages and translated content available depend on the current implementation.
 
 For a reliable multilingual experience, translate navigation, validation messages, forms, and essential tourism information consistently, and review culturally specific translations for accuracy.
-
+![Multilingual Support](frontend/public/images/multiLang.png)
 ---
 
-## Project Screenshots
+<!-- ## Project Screenshots
 
 The following image paths are placeholders. Create the `docs/screenshots/` directory and add your screenshots using these filenames, or update the Markdown paths to match your own filenames.
 
@@ -305,7 +304,7 @@ The following image paths are placeholders. Create the `docs/screenshots/` direc
 | Artist marketplace | `docs/screenshots/artist-marketplace.png` |
 | Trip planner | `docs/screenshots/trip-planner.png` |
 | Login / registration | `docs/screenshots/authentication.png` |
-| Admin dashboard | `docs/screenshots/admin-dashboard.png` |
+| Admin dashboard | `docs/screenshots/admin-dashboard.png` | -->
 
 ### Adding screenshots
 
@@ -767,51 +766,6 @@ If the missing module is not listed in `requirements.txt`, identify the correct 
 
 Video assets can make a repository very large. Consider Git LFS or hosting large media separately, then document the download or setup process. Check any repository size and bandwidth limits before choosing a hosting approach.
 
-## Future Enhancements
-
-Potential improvements for future versions include:
-
-- Expanding destination coverage across India while maintaining a strong Maharashtra heritage focus.
-- Adding verified, regularly updated festival information.
-- Improving recommendation quality with additional destination data and user feedback.
-- Extending multilingual content and translation review.
-- Improving accessibility and mobile responsiveness.
-- Adding richer trip itineraries and clearer enquiry status tracking.
-- Expanding artist profiles and marketplace capabilities.
-- Enhancing analytics and administrative reporting.
-- Improving automated tests, API validation, and deployment workflows.
-- Optimizing video delivery and media loading for slower connections.
-- Adding reliable source attribution for historical, cultural, and travel information.
-
-These are possible future enhancements, not a claim that they are already implemented.
-
-## Contributing
-
-Contributions, suggestions, and bug reports are welcome.
-
-A typical contribution workflow is:
-
-1. Fork the repository.
-2. Create a branch for your change.
-3. Make a focused update.
-4. Test the affected functionality.
-5. Commit your changes with a descriptive message.
-6. Open a pull request explaining the change.
-
-For example:
-
-```bash
-git checkout -b feature/your-feature
-git add .
-git commit -m "Describe your change"
-git push origin feature/your-feature
-```
-
-Before contributing, check the project's existing conventions and ensure that no `.env` files, credentials, or large generated assets are included unintentionally.
-
-## License
-
-No license has been specified in this template. Before publishing the repository, choose a license that matches how you want others to use, modify, and distribute the project. If you do not add a license, others generally do not receive the standard permissions granted by an open-source license.
 
 ## Acknowledgements
 
