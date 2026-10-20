@@ -287,40 +287,22 @@ For a reliable multilingual experience, translate navigation, validation message
 ![Multilingual Support](frontend/public/images/multiLang.png)
 ---
 
-<!-- ## Project Screenshots
-
-The following image paths are placeholders. Create the `docs/screenshots/` directory and add your screenshots using these filenames, or update the Markdown paths to match your own filenames.
+## Project Screenshots
 
 | Screen | Placeholder image |
 |---|---|
-| Home page | `docs/screenshots/home.png` |
-| Interactive map | `docs/screenshots/interactive-map.png` |
-| Recommendations | `docs/screenshots/recommendations.png` |
-| Festival calendar | `docs/screenshots/festival-calendar.png` |
-| AI chatbot | `docs/screenshots/ai-chatbot.png` |
-| Kids' stories | `docs/screenshots/kids-storytelling.png` |
-| Culture quiz | `docs/screenshots/culture-quiz.png` |
-| Mystery / riddle | `docs/screenshots/mystery-riddle.png` |
-| Artist marketplace | `docs/screenshots/artist-marketplace.png` |
-| Trip planner | `docs/screenshots/trip-planner.png` |
-| Login / registration | `docs/screenshots/authentication.png` |
-| Admin dashboard | `docs/screenshots/admin-dashboard.png` | -->
-
-### Adding screenshots
-
-1. In the repository root, create a folder named `docs/screenshots/`.
-2. Capture screenshots of the running application.
-3. Save each image using the corresponding filename in the table above.
-4. Commit the images alongside `README.md`.
-5. Check the README preview on GitHub and adjust image dimensions or filenames if needed.
-
-For example, to display a screenshot in Markdown:
-
-```md
-![MahaVista home page](docs/screenshots/home.png)
-```
-
-If a screenshot is not available yet, leave the placeholder path in the README and add the image later. GitHub will show a broken image until the file exists.
+| Interactive map | `frontend/public/images/MapScreenshot.png` |
+| Recommendations | `frontend/public/images/RecomScreenshot.png` |
+| Festival calendar | `frontend/public/images/festival-calendar.png` |
+| AI chatbot | `frontend/public/images/ai-chatbot.png` |
+| Kids' stories | `frontend/public/images/kids-storytelling.png` |
+| Culture quiz | `frontend/public/images/culture-quiz.png` |
+| Mystery / riddle | `frontend/public/images/mystery-riddle.png` |
+| Artist marketplace | `frontend/public/images/artist-marketplace.png` |
+| Trip planner | `frontend/public/images/trip-planner2.png` |
+| Login / registration | `frontend/public/images/authentication.png` |
+| Admin dashboard | `frontend/public/images/admin-dashboard.png` |
+| Multilingual Support| `frontend/public/images/multiLang.png` |
 
 ## Technology Stack
 
