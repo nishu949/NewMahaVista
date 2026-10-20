@@ -289,20 +289,20 @@ For a reliable multilingual experience, translate navigation, validation message
 
 ## Project Screenshots
 
-| Screen | Placeholder image |
+| Screen | Preview |
 |---|---|
-| Interactive map | `frontend/public/images/MapScreenshot.png` |
-| Recommendations | `frontend/public/images/RecomScreenshot.png` |
-| Festival calendar | `frontend/public/images/festival-calendar.png` |
-| AI chatbot | `frontend/public/images/ai-chatbot.png` |
-| Kids' stories | `frontend/public/images/kids-storytelling.png` |
-| Culture quiz | `frontend/public/images/culture-quiz.png` |
-| Mystery / riddle | `frontend/public/images/mystery-riddle.png` |
-| Artist marketplace | `frontend/public/images/artist-marketplace.png` |
-| Trip planner | `frontend/public/images/trip-planner2.png` |
-| Login / registration | `frontend/public/images/authentication.png` |
-| Admin dashboard | `frontend/public/images/admin-dashboard.png` |
-| Multilingual Support| `frontend/public/images/multiLang.png` |
+| Interactive map | [![Interactive map](frontend/public/images/MapScreenshot.png)](frontend/public/images/MapScreenshot.png) |
+| Recommendations | [![Recommendations](frontend/public/images/RecomScreenshot.png)](frontend/public/images/RecomScreenshot.png) |
+| Festival calendar | [![Festival calendar](frontend/public/images/festival-calendar.png)](frontend/public/images/festival-calendar.png) |
+| AI chatbot | [![AI chatbot](frontend/public/images/ai-chatbot.png)](frontend/public/images/ai-chatbot.png) |
+| Kids' stories | [![Kids' stories](frontend/public/images/kids-storytelling.png)](frontend/public/images/kids-storytelling.png) |
+| Culture quiz | [![Culture quiz](frontend/public/images/culture-quiz.png)](frontend/public/images/culture-quiz.png) |
+| Mystery / riddle | [![Mystery](frontend/public/images/mystery-riddle.png)](frontend/public/images/mystery-riddle.png) |
+| Artist marketplace | [![Marketplace](frontend/public/images/artist-marketplace.png)](frontend/public/images/artist-marketplace.png) |
+| Trip planner | [![Trip planner](frontend/public/images/trip-planner2.png)](frontend/public/images/trip-planner2.png) |
+| Login / registration | [![Login](frontend/public/images/authentication.png)](frontend/public/images/authentication.png) |
+| Admin dashboard | [![Admin dashboard](frontend/public/images/admin-dashboard.png)](frontend/public/images/admin-dashboard.png) |
+| Multilingual Support | [![Multilingual](frontend/public/images/multiLang.png)](frontend/public/images/multiLang.png) |
 
 ## Technology Stack
 
