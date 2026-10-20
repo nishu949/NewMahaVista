@@ -13,7 +13,6 @@ import {
   Upload,
   Loader2,
   X,
-  Download,
 } from "lucide-react";
 
 const API_BASE_URL = "http://127.0.0.1:8000";
@@ -30,20 +29,10 @@ export default function MaharashtraMystery() {
   const [showStoryModal, setShowStoryModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [storyTheme, setStoryTheme] = useState("heritage");
-  const [generatingStory, setGeneratingStory] = useState(false);
-  const [storyVideoUrl, setStoryVideoUrl] = useState(null);
   const [storyError, setStoryError] = useState("");
-  const [storyText, setStoryText] = useState("");
-  const [storyTitle, setStoryTitle] = useState("");
+  const [storySubmitted, setStorySubmitted] = useState(false);
 
   const fileInputRef = useRef(null);
-
-  const storyThemes = [
-    { value: "heritage", label: "🏛️ Heritage", desc: "Ancient monuments & history" },
-    { value: "culture", label: "🎭 Culture", desc: "Traditions & festivals" },
-    { value: "food", label: "🍛 Food", desc: "Maharashtrian cuisine" },
-  ];
 
   // ==========================================================
   // PAGE BACKGROUND
@@ -56,6 +45,14 @@ export default function MaharashtraMystery() {
     backgroundAttachment: "fixed",
   };
 
+const IMAGE_ALIASES = {
+  "/images/misal-pav.webp":    "/images/MisalPav.png",
+  "/images/modak.webp":        "/images/modak.jpg",
+  "/images/ajanta-caves.webp": "/images/AjantaCaves.jpg",
+  "/images/lavani.webp":       "/images/lavni.jpg",
+  "/images/raigad.webp":       "/images/RaigadFort.webp",
+  "/images/ellora-caves.webp": "/images/ElloraCaves.jpg",
+};
   const fetchMystery = async () => {
     try {
       setLoading(true);
@@ -63,7 +60,6 @@ export default function MaharashtraMystery() {
       setAnswer("");
       setResult(null);
       setRevealedClues([]);
-      setStoryVideoUrl(null);
       setShowStoryModal(false);
 
       const response = await fetch(`${API_BASE_URL}/api/mysteries/random`);
@@ -158,6 +154,7 @@ export default function MaharashtraMystery() {
     reader.onload = (event) => setImagePreview(event.target.result);
     reader.readAsDataURL(file);
     setStoryError("");
+    setStorySubmitted(true); // show confirmation message
   };
 
   const removeImage = () => {
@@ -169,91 +166,14 @@ export default function MaharashtraMystery() {
   const resetStory = () => {
     setSelectedImage(null);
     setImagePreview(null);
-    setStoryVideoUrl(null);
-    setStoryText("");
-    setStoryTitle("");
+    setStorySubmitted(false);
     setStoryError("");
-    setStoryTheme("heritage");
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const closeStoryModal = () => {
     setShowStoryModal(false);
     resetStory();
-  };
-
-  const generateStory = async () => {
-    if (!selectedImage) {
-      setStoryError("Please upload a photo first.");
-      return;
-    }
-
-    setGeneratingStory(true);
-    setStoryError("");
-    setStoryVideoUrl(null);
-    setStoryText("");
-    setStoryTitle("");
-
-    try {
-      const formData = new FormData();
-      formData.append("image", selectedImage);
-      formData.append("theme", storyTheme);
-      if (mystery?.answer) formData.append("mystery_answer", mystery.answer);
-      if (mystery?.title) formData.append("mystery_title", mystery.title);
-
-      const response = await fetch(
-        `${API_BASE_URL}/api/mysteries/generate-video`,
-        { method: "POST", body: formData }
-      );
-
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        throw new Error("The backend returned an invalid response.");
-      }
-
-      if (!response.ok) {
-        throw new Error(
-          data?.detail || data?.message || "Unable to generate your video."
-        );
-      }
-
-      if (!data?.video_url) {
-        throw new Error("Video URL was not returned by the backend.");
-      }
-
-      const fullVideoUrl =
-        data.video_url.startsWith("http://") || data.video_url.startsWith("https://")
-          ? data.video_url
-          : `${API_BASE_URL}${data.video_url}`;
-
-      console.log("Generated video:", fullVideoUrl);
-      setStoryVideoUrl(fullVideoUrl);
-      setStoryTitle(data.title || "Your Maharashtra Adventure");
-      setStoryText(
-        data.story ||
-          data.description ||
-          "Your photo has been transformed into an animated Maharashtra adventure."
-      );
-    } catch (error) {
-      console.error("Video generation error:", error);
-      setStoryError(
-        error.message || "Something went wrong while creating your animated story."
-      );
-    } finally {
-      setGeneratingStory(false);
-    }
-  };
-
-  const downloadStory = () => {
-    if (!storyVideoUrl) return;
-    const link = document.createElement("a");
-    link.href = storyVideoUrl;
-    link.download = "my-maharashtra-story.mp4";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   const StoryModal = () => {
@@ -271,46 +191,15 @@ export default function MaharashtraMystery() {
           </button>
 
           <h2 className="text-2xl font-bold text-[#2d1a14] mb-2 pr-10">
-            🎬 Create Your Animated Story
+            🎬 Become the Story
           </h2>
 
           <p className="text-[#72574c] mb-6">
-            Upload a photo and choose a theme to generate a personalized story
-            about Maharashtra.
+            Upload a photo and we'll turn you into an animated Maharashtra story.
           </p>
 
-          {!storyVideoUrl && !generatingStory && (
+          {!storySubmitted && (
             <>
-              <div className="mb-6">
-                <label className="block text-sm font-semibold text-[#3d2922] mb-2">
-                  Choose Story Theme
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {storyThemes.map((theme) => (
-                    <button
-                      type="button"
-                      key={theme.value}
-                      onClick={() => setStoryTheme(theme.value)}
-                      className={`p-3 rounded-xl border-2 text-center transition ${
-                        storyTheme === theme.value
-                          ? "border-[#a45a24] bg-[#fff4df] shadow-sm"
-                          : "border-[#eadbd3] hover:border-[#c9957d] bg-white/70 backdrop-blur-sm"
-                      }`}
-                    >
-                      <div className="text-2xl mb-1">
-                        {theme.label.split(" ")[0]}
-                      </div>
-                      <div className="text-sm font-medium text-[#2d1a14]">
-                        {theme.label.split(" ").slice(1).join(" ")}
-                      </div>
-                      <div className="text-xs text-[#72574c] mt-1">
-                        {theme.desc}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div className="mb-6">
                 <label className="block text-sm font-semibold text-[#3d2922] mb-2">
                   Upload Your Photo
@@ -357,98 +246,37 @@ export default function MaharashtraMystery() {
                   {storyError}
                 </div>
               )}
-
-              <button
-                type="button"
-                onClick={generateStory}
-                disabled={!selectedImage || generatingStory}
-                className="w-full py-4 rounded-xl bg-[#7f3f2b] text-white font-semibold hover:bg-[#693321] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <Play className="w-5 h-5" />
-                Generate My Story
-              </button>
-
-              <p className="text-xs text-[#96796c] text-center mt-3">
-                Your photo is processed securely by the MahaVista backend.
-              </p>
             </>
           )}
 
-          {generatingStory && (
-            <div className="text-center py-12">
-              <div className="relative w-20 h-20 mx-auto mb-5">
-                <Loader2 className="w-16 h-16 text-[#7f3f2b] animate-spin absolute inset-0 m-auto" />
+          {storySubmitted && (
+            <div className="text-center py-8">
+              <div className="w-20 h-20 rounded-full bg-[#f5dfb8]/90 flex items-center justify-center mx-auto mb-5">
+                <Trophy className="w-10 h-10 text-[#a45a24]" />
               </div>
-              <h3 className="text-xl font-semibold text-[#2d1a14] mb-2">
-                Creating Your Story...
+              <h3 className="text-2xl font-bold text-[#2d1a14] mb-3">
+                🎉 Congratulations!
               </h3>
-              <p className="text-[#72574c] max-w-md mx-auto">
-                Gemini is creating your personalized Maharashtra adventure.
-                This may take a little while.
+              <p className="text-[#5a3b31] max-w-md mx-auto mb-6">
+                You'll get your video within 2 days.
               </p>
-              <div className="mt-5 flex items-center justify-center gap-2 text-sm text-[#a45a24]">
-                <Sparkles className="w-4 h-4" />
-                <span>Generating your cinematic experience</span>
-              </div>
-            </div>
-          )}
 
-          {storyVideoUrl && !generatingStory && (
-            <div>
-              <div className="bg-black rounded-xl overflow-hidden mb-5">
-                <video
-                  key={storyVideoUrl}
-                  src={storyVideoUrl}
-                  controls
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto max-h-[500px] object-contain"
-                  poster={imagePreview || undefined}
-                >
-                  Your browser does not support the video player.
-                </video>
-              </div>
-
-              {storyTitle && (
-                <h3 className="text-xl font-bold text-[#2d1a14] mb-2">
-                  {storyTitle}
-                </h3>
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Uploaded preview"
+                  className="w-40 h-40 object-cover rounded-2xl mx-auto mb-6 shadow-lg"
+                />
               )}
 
-              {storyText && (
-                <div className="bg-[#f8eadf]/80 backdrop-blur-sm rounded-xl p-4 mb-5 max-h-40 overflow-y-auto">
-                  <p className="text-sm text-[#4e3830] leading-relaxed">
-                    {storyText}
-                  </p>
-                </div>
-              )}
-
-              <div className="mb-5">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#fff4df] text-[#965034] text-xs font-semibold">
-                  {storyThemes.find((theme) => theme.value === storyTheme)
-                    ?.label || "Heritage"}
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  type="button"
-                  onClick={resetStory}
-                  className="flex-1 py-3 rounded-xl border border-[#dcc8bd] text-[#65453a] hover:bg-[#fffaf7] transition flex items-center justify-center gap-2"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  Create Another
-                </button>
-
-                <button
-                  type="button"
-                  onClick={downloadStory}
-                  className="flex-1 py-3 rounded-xl bg-[#7f3f2b] text-white hover:bg-[#693321] transition flex items-center justify-center gap-2"
-                >
-                  <Download className="w-4 h-4" />
-                  Download Story
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={resetStory}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#7f3f2b] text-white hover:bg-[#693321] transition"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Upload Another Photo
+              </button>
             </div>
           )}
         </div>
@@ -538,13 +366,13 @@ export default function MaharashtraMystery() {
 
             {/* ANSWER CARD — frosted, but inner content kept readable */}
             <div className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(75,45,35,0.2)] mb-8">
-              {result.image_url && (
-                <img
-                  src={result.image_url}
-                  alt={result.answer}
-                  className="w-full h-64 object-cover"
-                />
-              )}
+{result.image_url && (
+  <img
+    src={IMAGE_ALIASES[result.image_url] || result.image_url}
+    alt={result.answer}
+    className="w-full h-64 object-cover"
+  />
+)}    
 
               <div className="p-7 bg-white/40">
                 <div className="flex items-center gap-2 text-sm text-[#a45a24] font-semibold mb-3">
@@ -823,5 +651,3 @@ export default function MaharashtraMystery() {
     </div>
   );
 }
-
-
