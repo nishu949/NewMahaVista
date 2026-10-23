@@ -1,8 +1,10 @@
 import { Sparkles, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext"; // ✅ ADDED
 
 const RecommendationCard = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage(); // ✅ ADDED
 
   return (
   <section className="w-full py-6 md:py-10">
@@ -33,26 +35,24 @@ const RecommendationCard = () => {
           </span>
 
           <span className="maha-body text-xs md:text-sm uppercase tracking-[0.18em] font-bold text-[#ffbd91]">
-            Personalized For You
+            {t("personalizedForYou")} {/* ✅ TRANSLATED */}
           </span>
         </div>
 
         <h2 className="maha-display text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1] tracking-[-0.035em] text-white">
-          Find places
+          {t("findPlacesLine1")} {/* ✅ TRANSLATED */}
           <br />
           <span className="text-[#ffb68d]">
-            made for you.
+            {t("findPlacesLine2")} {/* ✅ TRANSLATED */}
           </span>
         </h2>
 
         <p className="maha-body text-sm md:text-base text-white/80 mt-5 max-w-xl leading-relaxed">
-          Tell us what you love, when you're travelling,
-          and how you like to explore. We'll find the
-          Maharashtra destinations that match you best.
+          {t("recommendationDesc")} {/* ✅ TRANSLATED */}
         </p>
 
         <div className="mt-7 inline-flex items-center gap-3 bg-[#f47920] hover:bg-[#e86b13] text-white px-6 py-3.5 rounded-xl font-bold text-sm md:text-base shadow-[0_8px_20px_rgba(244,121,32,0.25)] transition-all duration-300 group-hover:gap-4">
-          Plan My Journey
+          {t("planJourney")} {/* ✅ TRANSLATED */}
           <ArrowRight size={18} />
         </div>
 

@@ -9,6 +9,7 @@ import {
   ScrollText,
   Heart,
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext"; // ✅ ADDED
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,6 +19,7 @@ const ShopSection = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { t } = useLanguage(); // ✅ ADDED
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/products")
@@ -61,16 +63,11 @@ const ShopSection = () => {
                 </div>
 
                 <h2 className="text-3xl font-bold tracking-tight text-[#fff3e0] sm:text-4xl lg:text-[44px]">
-                  Heritage Crafts of Maharashtra
+                  {t("heritageCrafts")} {/* ✅ TRANSLATED */}
                 </h2>
 
                 <div className="mt-4 h-[2px] w-20 bg-[#d7b384]" />
 
-                {/* <p className="mt-4 max-w-2xl text-sm leading-7 text-[#f1d7b5] sm:text-base">
-                  Discover traditional treasures inspired by Warli art,
-                  Paithani weaving, Kolhapuri craft, handmade décor, and local
-                  artisan traditions from across Maharashtra.
-                </p> */}
               </div>
 
               <div className="flex flex-row items-center gap-3 sm:gap-4 lg:flex-col lg:items-end">
@@ -83,7 +80,7 @@ const ShopSection = () => {
 
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7a5a3a]">
-                      Crafted Pieces
+                      {t("craftedPieces")} {/* ✅ TRANSLATED */}
                     </p>
 
                     <p className="mt-0.5 text-xl font-bold text-[#3a2416]">
@@ -97,7 +94,7 @@ const ShopSection = () => {
                   to="/shop"
                   className="group inline-flex items-center gap-2 rounded-xl border border-[#d7b384] bg-[#f5e6cc] px-5 py-3 text-sm font-semibold text-[#3a2416] transition-all duration-300 hover:bg-[#e8d2aa]"
                 >
-                  View All
+                  {t("viewAllProducts")} {/* ✅ TRANSLATED */}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
@@ -107,7 +104,7 @@ const ShopSection = () => {
           </div>
 
           {/* ================= PRODUCTS ================= */}
-         <div className="relative bg-[#80502d] px-5 py-6 sm:px-8 lg:px-10">
+          <div className="relative bg-[#80502d] px-5 py-6 sm:px-8 lg:px-10">
 
             {/* Loading */}
             {loading && (
@@ -156,8 +153,7 @@ const ShopSection = () => {
             {/* Products */}
             {!loading && !error && featuredProducts.length > 0 && (
               <Swiper
-                 modules={[Pagination, Autoplay]}
-               
+                modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
                 autoplay={{
                   delay: 4000,
@@ -260,7 +256,7 @@ const ShopSection = () => {
                           </div>
 
                           <span className="shrink-0 rounded-md border border-[#dbc9ae] bg-[#eadcc7] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#7f6549]">
-                            Handcrafted
+                            {t("handmade")} {/* ✅ TRANSLATED */}
                           </span>
                         </div>
 
@@ -304,7 +300,7 @@ const ShopSection = () => {
                             className="inline-flex items-center gap-2 rounded-lg bg-[#6b3f1d] px-4 py-2.5 text-sm font-semibold text-[#f5e6cc] transition-all duration-300 hover:bg-[#573017]"
                           >
                             <ShoppingBag className="h-4 w-4" />
-                            Explore
+                            {t("explore")} {/* ✅ TRANSLATED */}
                           </Link>
                         </div>
                       </div>

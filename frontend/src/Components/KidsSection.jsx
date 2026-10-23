@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Play, Sparkles, Trophy, Users, Clock, Eye, ChevronRight, Star, Flame, LockKeyhole, ArrowRight } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext"; // ✅ ADDED
 
 const KidsSection = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage(); // ✅ ADDED
   const [selectedSubtopic, setSelectedSubtopic] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [selectedStory, setSelectedStory] = useState(null);
@@ -52,9 +54,9 @@ const KidsSection = () => {
   ];
 
   const featureCards = [
-    { emoji: "🏛️", title: "History", subtitle: "Mighty Forts", color: "from-amber-500 to-orange-600", borderColor: "border-amber-300" },
-    { emoji: "🎭", title: "Culture", subtitle: "Living Arts", color: "from-purple-500 to-pink-600", borderColor: "border-purple-300" },
-    { emoji: "🍛", title: "Cuisine", subtitle: "Flavor & Spice", color: "from-red-500 to-rose-600", borderColor: "border-red-300" },
+    { emoji: "🏛️", titleKey: "history", subtitleKey: "mightyForts", color: "from-amber-500 to-orange-600", borderColor: "border-amber-300" },
+    { emoji: "🎭", titleKey: "culture", subtitleKey: "livingArts", color: "from-purple-500 to-pink-600", borderColor: "border-purple-300" },
+    { emoji: "🍛", titleKey: "cuisine", subtitleKey: "flavorSpice", color: "from-red-500 to-rose-600", borderColor: "border-red-300" },
   ];
 
   const handleStartQuiz = () => {
@@ -102,10 +104,10 @@ const KidsSection = () => {
           </span>
           <div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-[#20263F] tracking-tight leading-none">
-              Kids Corner
+              {t("kidsCorner")} {/* ✅ TRANSLATED */}
             </h2>
             <p className="font-body text-sm text-[#8A5A3E] mt-1">
-              Stories and quizzes from the heart of Maharashtra
+              {t("kidsSub")} {/* ✅ TRANSLATED */}
             </p>
           </div>
         </div>
@@ -157,13 +159,13 @@ const KidsSection = () => {
                 onClick={() => setSelectedStory(mockFeaturedStory)}
                 className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#C1502D] text-white font-body text-sm font-semibold hover:bg-[#A8431F] transition-colors duration-200"
               >
-                <Play className="w-4 h-4 fill-white" /> Watch story
+                <Play className="w-4 h-4 fill-white" /> {t("watchStory")} {/* ✅ TRANSLATED */}
               </button>
               <button
                 onClick={handleViewAllStories}
                 className="flex-1 px-5 py-3 rounded-xl bg-[#FBF4E8] text-[#20263F] font-body text-sm font-semibold border border-[#E9DAC3] hover:bg-[#F3E5CC] transition-colors duration-200"
               >
-                View all stories
+                {t("viewAll")} {/* ✅ TRANSLATED */}
               </button>
             </div>
 
@@ -222,30 +224,29 @@ const KidsSection = () => {
           </div>
 
           {/* ============== RIGHT: QUIZ - IMPROVED FEATURE CARDS ============== */}
-                   {/* ============== RIGHT: QUIZ - IMPROVED FEATURE CARDS ============== */}
           <div className="bg-gradient-to-br from-[#E8D5C4] to-[#D4BBA5] rounded-2xl p-6 md:p-7 border border-[#C4A88A] shadow-[0_2px_0_#C4A88A]">
             <div className="inline-flex items-center gap-2 rounded-full bg-[#C1502D]/15 px-3.5 py-1.5 mb-4 border border-[#C1502D]/20">
               <Sparkles className="w-3.5 h-3.5 text-[#C1502D]" />
               <span className="font-body text-xs font-semibold text-[#8A3A1E] tracking-wide">
-                Mystic Trail Quiz
+                {t("mysticTrail")} {/* ✅ TRANSLATED */}
               </span>
             </div>
 
             <h2 className="font-display text-3xl font-bold text-[#3D2415] leading-tight">
-              Culture quiz
+              {t("cultureQuizTitle")} {/* ✅ TRANSLATED */}
             </h2>
             <p className="font-body text-sm leading-relaxed text-[#4D3220] mt-3">
-              Test your knowledge of Maharashtra's magnificent forts, vibrant culture, and rich culinary traditions.
+              {t("cultureQuizDesc")} {/* ✅ TRANSLATED */}
             </p>
 
             {/* ========== FEATURE CARDS - LARGER & MORE PROMINENT ========== */}
             <div className="mt-5 grid grid-cols-3 gap-3">
               {featureCards.map((item) => {
-                const active = selectedSubtopic === item.title;
+                const active = selectedSubtopic === item.titleKey;
                 return (
                   <button
-                    key={item.title}
-                    onClick={() => setSelectedSubtopic(item.title)}
+                    key={item.titleKey}
+                    onClick={() => setSelectedSubtopic(item.titleKey)}
                     className={`group relative overflow-hidden rounded-2xl p-4 text-center transition-all duration-300 border-3 shadow-lg ${active
                       ? `bg-gradient-to-br ${item.color} border-[#C1502D] scale-105 feature-card-glow`
                       : "bg-white/90 border-[#C4A88A] hover:scale-105 hover:shadow-xl hover:border-[#C1502D]"
@@ -260,11 +261,11 @@ const KidsSection = () => {
                       </div>
                       <div className={`font-body text-base font-bold transition-colors duration-300 ${active ? "text-white" : "text-[#3D2415] group-hover:text-[#C1502D]"
                         }`}>
-                        {item.title}
+                        {t(item.titleKey)} {/* ✅ TRANSLATED */}
                       </div>
                       <div className={`font-body text-xs font-medium transition-colors duration-300 ${active ? "text-white/80" : "text-[#6B4F3A] group-hover:text-[#8A3A1E]"
                         }`}>
-                        {item.subtitle}
+                        {t(item.subtitleKey)} {/* ✅ TRANSLATED */}
                       </div>
                     </div>
 
@@ -289,7 +290,7 @@ const KidsSection = () => {
               className="mt-5 w-full flex items-center justify-center gap-2 rounded-xl bg-[#C1502D] hover:bg-[#A8431F] px-5 py-3.5 font-body font-semibold text-white text-sm transition-colors duration-200 shadow-md hover:shadow-lg"
             >
               <Play size={16} className="fill-current" />
-              {selectedSubtopic ? `Start ${selectedSubtopic} quiz` : "Begin your journey"}
+              {selectedSubtopic ? `${t("startQuiz")} ${t(selectedSubtopic)}` : t("beginJourney")} {/* ✅ TRANSLATED */}
               <ChevronRight size={16} className={`transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`} />
             </button>
 
@@ -309,90 +310,78 @@ const KidsSection = () => {
             </div>
 
             {/* ========== MYSTERY GAME CARD (BELOW BUTTON) ========== */}
-<div className="mt-2 group relative overflow-hidden rounded-2xl border-2 border-[#C4A88A] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-  <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
-  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
+            <div className="mt-2 group relative overflow-hidden rounded-2xl border-2 border-[#C4A88A] bg-gradient-to-br from-[#fffaf7] to-[#f8eadf] p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#f5dfb8]/40 blur-2xl" />
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#b8860b]/40 to-transparent" />
 
-  {/* Two-column layout: content left, image right */}
-  <div className="relative z-10 flex flex-col sm:flex-row gap-5 items-stretch">
+              {/* Two-column layout: content left, image right */}
+              <div className="relative z-10 flex flex-col sm:flex-row gap-5 items-stretch">
 
-    {/* LEFT: content */}
-    <div className="flex-1 flex flex-col min-w-0">
+                {/* LEFT: content */}
+                <div className="flex-1 flex flex-col min-w-0">
 
-      {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#C4A88A] text-[#965034] text-xs font-bold uppercase tracking-wider mb-2">
-            <Sparkles className="w-3.5 h-3.5" />
-            Interactive Game
-          </div>
-          <h3 className="font-display text-xl font-bold text-[#3D2415]">
-            Maharashtra Mystery
-          </h3>
-        </div>
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f8eadf] border border-[#C4A88A] text-[#965034] text-xs font-bold uppercase tracking-wider mb-2">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        {t("interactiveGame")} {/* ✅ TRANSLATED */}
+                      </div>
+                      <h3 className="font-display text-xl font-bold text-[#3D2415]">
+                        {t("mysteryTitle")} {/* ✅ TRANSLATED */}
+                      </h3>
+                    </div>
 
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C1502D]/10 border border-[#C1502D]/20 shrink-0 sm:hidden">
-          <LockKeyhole className="h-5 w-5 text-[#C1502D]" />
-        </div>
-      </div>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C1502D]/10 border border-[#C1502D]/20 shrink-0 sm:hidden">
+                      <LockKeyhole className="h-5 w-5 text-[#C1502D]" />
+                    </div>
+                  </div>
 
-      {/* Fun stats */}
-      <div className="flex items-center gap-3 mb-3">
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
-          <Trophy className="w-3.5 h-3.5" />
-          500+ XP
-        </div>
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
-          <Sparkles className="w-3.5 h-3.5" />
-          3 Clues
-        </div>
-      </div>
+                  {/* Fun stats */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+                      <Trophy className="w-3.5 h-3.5" />
+                      {t("xpPoints")} {/* ✅ TRANSLATED */}
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 border border-[#E9DAC3] text-[11px] font-bold text-[#965034]">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      {t("clues")} {/* ✅ TRANSLATED */}
+                    </div>
+                  </div>
 
-      {/* Description — with translucent backdrop */}
-      <p className="text-sm text-[#72574c] leading-relaxed mb-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/40">
-        Can you guess the hidden secret of Maharashtra? Use clues wisely and become a top explorer!
-      </p>
+                  {/* Description — with translucent backdrop */}
+                  <p className="text-sm text-[#72574c] leading-relaxed mb-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/40">
+                    {t("mysteryDesc")} {/* ✅ TRANSLATED */}
+                  </p>
 
-      {/* CTA pushed to bottom of column */}
-      <button
-        onClick={() => navigate("/mystery")}
-        className="mt-auto w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C1502D] to-[#A8431F] px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
-      >
-        Play Mystery
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </button>
-    </div>
+                  {/* CTA pushed to bottom of column */}
+                  <button
+                    onClick={() => navigate("/mystery")}
+                    className="mt-auto w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C1502D] to-[#A8431F] px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg hover:scale-[1.02]"
+                  >
+                    {t("playMystery")} {/* ✅ TRANSLATED */}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
 
-    {/* RIGHT: image — wider column, full image visible */}
-    <div className="relative w-full sm:w-56 md:w-72 lg:w-80 shrink-0 overflow-hidden rounded-xl border border-[#C4A88A] shadow-sm bg-[#f8eadf]">
-      <img
-        src="/images/MystryImage.png"
-        alt="Maharashtra Mystery"
-        className="w-full h-48 sm:h-full object-contain transition-transform duration-700 group-hover:scale-105"
-        loading="lazy"
-      />
-      {/* Very subtle gradient for depth (won't obscure image) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#2d1a14]/10 via-transparent to-transparent pointer-events-none" />
+                {/* RIGHT: image — wider column, full image visible */}
+                <div className="relative w-full sm:w-56 md:w-72 lg:w-80 shrink-0 overflow-hidden rounded-xl border border-[#C4A88A] shadow-sm bg-[#f8eadf]">
+                  <img
+                    src="/images/MystryImage.png"
+                    alt="Maharashtra Mystery"
+                    className="w-full h-48 sm:h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Very subtle gradient for depth (won't obscure image) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2d1a14]/10 via-transparent to-transparent pointer-events-none" />
 
-      {/* Lock icon badge (desktop only) */}
-      <div className="hidden sm:flex absolute top-2 right-2 h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm border border-[#E9DAC3]">
-        <LockKeyhole className="h-4 w-4 text-[#C1502D]" />
-      </div>
-    </div>
-  </div>
-</div>
-
-            {/* Topics */}
-            {/* <div className="mt-4 pt-4 border-t border-[#C4A88A]/50 flex flex-wrap gap-2">
-              {["Forts", "Culture", "Cuisine", "History", "Traditions"].map((topic) => (
-                <span
-                  key={topic}
-                  className="px-3 py-1 font-body text-[10px] font-medium text-[#5A3A25] bg-white/80 rounded-full border border-[#C4A88A] hover:border-[#C1502D] hover:bg-white transition-colors cursor-default"
-                >
-                  {topic}
-                </span>
-              ))}
-            </div> */}
+                  {/* Lock icon badge (desktop only) */}
+                  <div className="hidden sm:flex absolute top-2 right-2 h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm border border-[#E9DAC3]">
+                    <LockKeyhole className="h-4 w-4 text-[#C1502D]" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

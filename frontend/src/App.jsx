@@ -17,6 +17,9 @@ import AdminBookings from "./pages/admin/AdminBookings";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminCities from "./pages/admin/AdminCities";
 import MaharashtraMystery from "./pages/MaharashtraMystery.jsx";
+import FestivalCalendar from "./Components/FestivalCalendar.jsx";
+import FullFestivalCalendar from "./pages/FullFestivalCalendar.jsx";
+
 
 function App() {
   return (
@@ -35,7 +38,8 @@ function App() {
         <Route path="/booking/:slug" element={<BookingPage />} />
         <Route path="/recommendations" element={<RecommendationPage />} />
         <Route path="/stories" element={<StoriesPage />} />
-
+        <Route path="/festivals" element={<FestivalCalendar />} />
+        <Route path="/festivals/full" element={<FullFestivalCalendar />} />
         {/* User */}
         <Route path="/my-bookings" element={<MyBookingsPage />} />
 

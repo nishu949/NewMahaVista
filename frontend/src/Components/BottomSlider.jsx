@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Play, Sparkles, Trophy, Star, Zap, Users, MapPin, Compass } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext"; // ✅ ADDED
 
 const featureCards = [
   { 
     emoji: "🏛️", 
-    title: "History", 
-    subtitle: "Mighty Forts",
+    titleKey: "history", 
+    subtitleKey: "mightyForts",
     color: "from-amber-600 to-orange-700",
     bgColor: "bg-amber-50",
     borderColor: "border-amber-200",
@@ -14,8 +15,8 @@ const featureCards = [
   },
   { 
     emoji: "🎭", 
-    title: "Culture", 
-    subtitle: "Living Arts",
+    titleKey: "culture", 
+    subtitleKey: "livingArts",
     color: "from-purple-600 to-pink-700",
     bgColor: "bg-purple-50",
     borderColor: "border-purple-200",
@@ -23,8 +24,8 @@ const featureCards = [
   },
   { 
     emoji: "🍛", 
-    title: "Cuisine", 
-    subtitle: "Flavor & Spice",
+    titleKey: "cuisine", 
+    subtitleKey: "flavorSpice",
     color: "from-red-600 to-rose-700",
     bgColor: "bg-red-50",
     borderColor: "border-red-200",
@@ -33,16 +34,17 @@ const featureCards = [
 ];
 
 const culturalIcons = [
-  { icon: "🏯", label: "Forts" },
-  { icon: "🎨", label: "Warli Art" },
-  { icon: "💃", label: "Lavani" },
-  { icon: "🥘", label: "Cuisine" },
-  { icon: "🪷", label: "Heritage" },
-  { icon: "📿", label: "Traditions" },
+  { icon: "🏯", labelKey: "forts" },
+  { icon: "🎨", labelKey: "warliArt" },
+  { icon: "💃", labelKey: "lavani" },
+  { icon: "🥘", labelKey: "cuisine" },
+  { icon: "🪷", labelKey: "heritage" },
+  { icon: "📿", labelKey: "traditions" },
 ];
 
 const BottomSlider = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage(); // ✅ ADDED
   const [selectedSubtopic, setSelectedSubtopic] = useState("");
   const [isHovered, setIsHovered] = useState(false);
 
@@ -103,32 +105,30 @@ const BottomSlider = () => {
             <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-5 py-2.5 border border-white/20 shadow-lg">
               <Sparkles className="w-4 h-4 text-yellow-300" />
               <span className="text-sm font-semibold text-white tracking-wide">
-                Mystic Trail Quiz
+                {t("mysticTrail")} {/* ✅ TRANSLATED */}
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" />
             </div>
 
             <h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl leading-tight">
-              Culture Quiz
+              {t("cultureQuizTitle")} {/* ✅ TRANSLATED */}
               <span className="block text-2xl font-light text-yellow-200/80 mt-2">
-                Discover Maharashtra's Heritage
+                {t("discoverHeritage")} {/* ✅ TRANSLATED */}
               </span>
             </h2>
 
             <p className="max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
-              Test your knowledge of Maharashtra's magnificent forts, vibrant culture,
-              rich culinary traditions, and centuries-old heritage through an engaging
-              interactive quiz experience.
+              {t("cultureQuizDesc")} {/* ✅ TRANSLATED */}
             </p>
 
             {/* Feature Cards */}
             <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
               {featureCards.map((item) => (
                 <button
-                  key={item.title}
-                  onClick={() => setSelectedSubtopic(item.title)}
+                  key={item.titleKey}
+                  onClick={() => setSelectedSubtopic(item.titleKey)}
                   className={`group relative overflow-hidden rounded-2xl border-2 p-5 text-left transition-all duration-300 ${
-                    selectedSubtopic === item.title
+                    selectedSubtopic === item.titleKey
                       ? `scale-[1.05] border-white/80 bg-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.3)] ring-2 ring-white/50`
                       : `border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 hover:scale-[1.02] hover:shadow-lg`
                   }`}
@@ -142,18 +142,18 @@ const BottomSlider = () => {
                     </div>
 
                     <div className={`text-lg font-bold text-white transition-colors duration-300 ${
-                      selectedSubtopic === item.title ? 'text-white' : 'group-hover:text-white'
+                      selectedSubtopic === item.titleKey ? 'text-white' : 'group-hover:text-white'
                     }`}>
-                      {item.title}
+                      {t(item.titleKey)} {/* ✅ TRANSLATED */}
                     </div>
 
                     <div className="mt-1 text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300">
-                      {item.subtitle}
+                      {t(item.subtitleKey)} {/* ✅ TRANSLATED */}
                     </div>
                   </div>
 
                   {/* Selection indicator */}
-                  {selectedSubtopic === item.title && (
+                  {selectedSubtopic === item.titleKey && (
                     <div className="absolute top-3 right-3">
                       <div className="w-5 h-5 rounded-full bg-green-400 flex items-center justify-center animate-pulse">
                         <span className="text-xs text-white">✓</span>
@@ -174,19 +174,23 @@ const BottomSlider = () => {
               >
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Play size={20} className="fill-current group-hover:animate-pulse" />
-                <span>{selectedSubtopic ? `Start ${selectedSubtopic} Quiz` : 'Begin Your Journey'}</span>
+                <span>
+                  {selectedSubtopic 
+                    ? `${t("startQuiz")} ${t(selectedSubtopic)}` 
+                    : t("beginJourney")} {/* ✅ TRANSLATED */}
+                </span>
                 <span className={`transition-all duration-300 ${isHovered ? 'translate-x-1' : ''}`}>→</span>
               </button>
 
               <div className="flex items-center gap-4 ml-4">
                 <div className="flex items-center gap-1.5 text-white/60">
                   <Users className="w-4 h-4" />
-                  <span className="text-sm font-medium">1.2k+ played</span>
+                  <span className="text-sm font-medium">{t("played")}</span> {/* ✅ TRANSLATED */}
                 </div>
                 <div className="w-px h-6 bg-white/20" />
                 <div className="flex items-center gap-1.5 text-white/60">
                   <Trophy className="w-4 h-4 text-yellow-300" />
-                  <span className="text-sm font-medium">Earn points</span>
+                  <span className="text-sm font-medium">{t("earnPoints")}</span> {/* ✅ TRANSLATED */}
                 </div>
               </div>
             </div>
@@ -194,12 +198,12 @@ const BottomSlider = () => {
             {/* Topics list */}
             <div className="mt-6 flex flex-wrap items-center gap-2">
               <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Topics:</span>
-              {['Forts', 'Culture', 'Cuisine', 'History', 'Traditions'].map((topic) => (
+              {['forts', 'culture', 'cuisine', 'history', 'traditions'].map((topicKey) => (
                 <span
-                  key={topic}
+                  key={topicKey}
                   className="px-3 py-1 text-xs font-medium text-white/60 bg-white/10 rounded-full border border-white/10"
                 >
-                  {topic}
+                  {t(topicKey)} {/* ✅ TRANSLATED */}
                 </span>
               ))}
             </div>
@@ -222,7 +226,7 @@ const BottomSlider = () => {
               <div className="absolute -top-5 -right-5 z-20 animate-bounce">
                 <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-5 py-2.5 shadow-lg">
                   <Zap className="w-4 h-4 text-[#3a2416]" />
-                  <span className="text-sm font-bold text-[#3a2416]">Quiz Time</span>
+                  <span className="text-sm font-bold text-[#3a2416]">{t("quizTime")}</span> {/* ✅ TRANSLATED */}
                 </div>
               </div>
 
@@ -241,7 +245,7 @@ const BottomSlider = () => {
                       {item.icon}
                     </div>
                     <span className="text-sm font-medium text-white/70 group-hover:text-white transition-colors duration-300">
-                      {item.label}
+                      {t(item.labelKey)} {/* ✅ TRANSLATED */}
                     </span>
                   </div>
                 ))}
@@ -257,7 +261,9 @@ const BottomSlider = () => {
               {/* Maharashtra Badge */}
               <div className="flex items-center justify-center gap-3 py-2">
                 <MapPin className="w-4 h-4 text-yellow-400" />
-                <span className="text-base font-semibold text-white/80 tracking-wide">Maharashtra</span>
+                <span className="text-base font-semibold text-white/80 tracking-wide">
+                  {t("maharashtra")} {/* ✅ TRANSLATED */}
+                </span>
               </div>
 
               {/* Heritage Tag */}
